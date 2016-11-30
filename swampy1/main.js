@@ -2,6 +2,7 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var lil_army = require('lil_army');
+var reports = require('reports');
 
 
 function defendRoom(roomName) {

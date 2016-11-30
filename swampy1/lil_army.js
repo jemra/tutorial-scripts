@@ -6,17 +6,6 @@ let notice = function(textinfo)
 }
 
 
-let _BODYPART_COST =
-{
-	"move": 50,
-	"work": 100,
-	"attack": 80,
-	"carry": 50,
-	"heal": 250,
-	"ranged_attack": 150,
-	"tough": 10,
-	"claim": 600
-};
 
 let _army_composition = 
 [
@@ -54,10 +43,16 @@ function _make_creep(model, spawn_name)
 	let getpart = at_ndx => modl.body[at_ndx];
 	let part = getpart(at_ndx);
 	let energy_used = 0;
-	
-	while(energy_to_consume >= _BODYPART_COST[part])
+
+	if( Memory.max_energy != energy_to_consume)
 	{
-		energy_to_consume -= _BODYPART_COST[part];
+		Memory.max_energy = energy_to_consume;
+		console.log(`Energy Class updated to ${Memory.max_energy}`);
+	}
+	
+	while(energy_to_consume >= util.BODYPART_COST[part])
+	{
+		energy_to_consume -= util.BODYPART_COST[part];
 		energy_used += BODYPART_COST[part];
 		body_spec.push(part);
 		at_ndx = (at_ndx + 1) % mx_ndx;
@@ -69,6 +64,7 @@ function _make_creep(model, spawn_name)
 
     let newname = modl.prefix + util.getRandomName();
     notice("Making a \"" + model + "\" " + newname + ` (${energy_used})`);
+	notice("  spec = " + body_spec.join(","));
     let ret = Game.spawns[spawn_name].createCreep(body_spec, newname, {role:modl.role, model:model});
     if(ret < 0)
     {
