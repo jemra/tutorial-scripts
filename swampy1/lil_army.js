@@ -5,11 +5,24 @@ let notice = function(textinfo)
     console.log("lil " + textinfo)
 }
 
+
+let _BODYPART_COST =
+{
+	"move": 50,
+	"work": 100,
+	"attack": 80,
+	"carry": 50,
+	"heal": 250,
+	"ranged_attack": 150,
+	"tough": 10,
+	"claim": 600
+};
+
 let _army_composition = 
 [
     {"model":"baby_harvester", "count" : 6},
-    {"model":"baby_builder", "count":1},
-    {"model":"baby_upgrader", "count" : 1}
+    {"model":"baby_builder", "count": 3},
+    {"model":"baby_upgrader", "count" : 3}
 ];
 
 let models = 
@@ -25,7 +38,7 @@ let models =
 		"prefix" : "bharv_"
     },
     "baby_upgrader" : {
-        "body" : [MOVE,WORK,CARRY,WORK],
+        "body" : [MOVE,CARRY,WORK,WORK],
         "role" : "upgrader",
 		"prefix" : "bupgd_"
     }
@@ -34,16 +47,32 @@ let models =
 function _make_creep(model, spawn_name)
 {
     let modl = models[model];
+	let body_spec = [];
+	let energy_to_consume = Game.spawns[spawn_name].room.energyCapacityAvailable;
+	let at_ndx = 0;
+	let mx_ndx = modl.body.length; 
+	let getpart = at_ndx => modl.body[at_ndx];
+	let part = getpart(at_ndx);
+	let energy_used = 0;
+	
+	while(energy_to_consume >= _BODYPART_COST[part])
+	{
+		energy_to_consume -= _BODYPART_COST[part];
+		energy_used += BODYPART_COST[part];
+		body_spec.push(part);
+		at_ndx = (at_ndx + 1) % mx_ndx;
+		part = getpart(at_ndx);
+	}
     
-    if( 0 != Game.spawns[spawn_name].canCreateCreep(modl.body) )
+    if( 0 != Game.spawns[spawn_name].canCreateCreep(body_spec) )
         return;
-    
+
     let newname = modl.prefix + util.getRandomName();
-    notice("Making a \"" + model + "\" " + newname);
-    let ret = Game.spawns[spawn_name].createCreep(modl.body, newname, {role:modl.role, model:model});
+    notice("Making a \"" + model + "\" " + newname + ` (${energy_used})`);
+    let ret = Game.spawns[spawn_name].createCreep(body_spec, newname, {role:modl.role, model:model});
     if(ret < 0)
     {
-        notice("Failed to make a \"" + model + "\" " + newname + " "+ ret);
+        notice("Failed to make a \"" + model + "\" " + newname + " "+ ret + ` (${energy_used})`);
     }
     return ret;
 }
