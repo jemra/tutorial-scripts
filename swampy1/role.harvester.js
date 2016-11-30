@@ -29,6 +29,12 @@ var roleHarvester = {
                     creep.moveTo(targets[0]);
                 }
             }
+			else
+			{
+				targets = creep.room.find(FIND_STRUCTURES, { filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN ); } });
+				if(targets.length > 0)
+					creep.moveTo(targets[0]);
+			}
         }
 	}
 };

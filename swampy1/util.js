@@ -10,19 +10,17 @@ function getRandomInt(min, max)
 function getRandomName()
 {
 	let ret = "";
-	return ret;
 
 	let hex = "01234567890ABCDEF";
 	let rando = getRandomInt(0x1000000, 0xFFFFFFF);
 	for(let x = 0; x < 7; ++x)
 	{
-		let cho = rando % 16;
-		ret += hex[cho];
+		let cho = parseInt(rando % 16);
+		//console.log(`||| x = ${x} cho = ${cho} hex=${hex.charAt(cho)}`);
+		ret += hex.charAt(cho);
 		rando = rando / 16;
 	}
 	return ret;
-
-    
 }
 
 module.exports = 
