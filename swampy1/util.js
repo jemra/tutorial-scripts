@@ -44,11 +44,18 @@ function set_doing_state(creep, state)
 	creep.memory.doing_state = state;
 }
 
+function qPosDist(p1,p2)
+{
+	let xdist = p2.x - p1.x;
+	let ydist = p2.y - p1.y;
+	return xdist*xdist + ydist*ydist;
+}
 
 module.exports = 
 {
 	getRandomInt : getRandomInt,
 	getRandomName : getRandomName,
 	set_doing_state : set_doing_state,
+	qPosDist : qPosDist
 };
 

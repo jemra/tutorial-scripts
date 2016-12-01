@@ -12,7 +12,7 @@ var roleHarvester = {
             {
                 creep.memory.harvest_from_node = util.getRandomInt(0, sources.length);
             }
-            
+
 			util.set_doing_state(creep, "harvest");
             if(creep.harvest(sources[creep.memory.harvest_from_node]) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(sources[creep.memory.harvest_from_node]);
