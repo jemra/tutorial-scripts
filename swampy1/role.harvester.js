@@ -10,7 +10,7 @@ var roleHarvester = {
 		{
 			if(creep.memory.doing_state != state)
 			{
-				creep.say("${state}!");
+				creep.say(`${state}!`);
 			}
 			creep.memory.doing_state = state;
 		}
