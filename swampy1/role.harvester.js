@@ -1,18 +1,19 @@
 "use strict";
 const util = require('util');
 
-function set_doing_state(creep, state)
-{
-	if(creep.memory.doing_state != state)
-	{
-		creep.say("${state}!");
-	}
-	creep.memory.doing_state = state;
-}
 var roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+
+		function set_doing_state(state)
+		{
+			if(creep.memory.doing_state != state)
+			{
+				creep.say("${state}!");
+			}
+			creep.memory.doing_state = state;
+		}
         
 	    if(creep.carry.energy < creep.carryCapacity) {
             var sources = creep.room.find(FIND_SOURCES_ACTIVE);
