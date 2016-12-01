@@ -65,7 +65,7 @@ function _make_creep(model, spawn_name)
 
     let newname = modl.prefix + util.getRandomName();
     notice("Making a \"" + model + "\" " + newname + ` (${energy_used})`);
-	notice("  spec = " + body_spec.join(","));
+	//notice("  spec = " + body_spec.join(","));
     let ret = Game.spawns[spawn_name].createCreep(body_spec, newname, {role:modl.role, model:model});
     if(ret < 0)
     {
