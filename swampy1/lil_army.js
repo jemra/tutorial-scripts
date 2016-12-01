@@ -10,9 +10,12 @@ let notice = function(textinfo)
 
 let _army_composition = 
 [
-    {"model":"baby_harvester", "count" : 6},
-    {"model":"baby_builder", "count": 3},
-    {"model":"baby_upgrader", "count" : 3}
+    {"model":"baby_harvester", "count" : 2},
+    {"model":"baby_builder", "count": 1},
+    {"model":"baby_upgrader", "count" : 1},
+    {"model":"baby_harvester", "count" : 4},
+    {"model":"baby_builder", "count": 2},
+    {"model":"baby_upgrader", "count" : 2},
 ];
 
 let models = 
