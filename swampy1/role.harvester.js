@@ -14,21 +14,21 @@ let roleHarvester = {
     run: function(creep) {
 	    if(creep.carry.energy < creep.carryCapacity) {
 
-			if(creep.memory.harvest_from_node == null )
+			if(creep.memory.harvest_from_src_id == null )
 			{
 				if( roleHarvester.alloc_func )
 				{
-					creep.memory.harvest_from_node = roleHarvester.alloc_func(creep);
+					creep.memory.harvest_from_src_id = roleHarvester.alloc_func(creep);
 				}
 			
-				if(creep.memory.harvest_from_node == null )
+				if(creep.memory.harvest_from_src_id == null )
 				{
 					var sources = creep.room.find(FIND_SOURCES_ACTIVE);
-					creep.memory.harvest_from_node = sources[util.getRandomInt(0, sources.length)].id;
+					creep.memory.harvest_from_src_id = sources[util.getRandomInt(0, sources.length)].id;
 				}
 			}
 
-			let source = Game.getObjectById(creep.memory.harvest_from_node);
+			let source = Game.getObjectById(creep.memory.harvest_from_src_id);
 
 			util.set_doing_state(creep, "harvest");
             if(creep.harvest(source) == ERR_NOT_IN_RANGE) {

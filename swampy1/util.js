@@ -57,7 +57,7 @@ let mk_notice = function(domain)
 	let prefix = domain + " ";
 	return function(textinfo)
 	{
-		console.log(domain + textinfo);
+		console.log(prefix + textinfo);
 	};
 };
 
