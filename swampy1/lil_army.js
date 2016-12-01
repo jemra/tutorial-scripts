@@ -51,9 +51,9 @@ function _make_creep(model, spawn_name)
 		console.log(`Energy Class updated to ${Memory.max_energy}`);
 	}
 	
-	while(energy_to_consume >= util.BODYPART_COST[part])
+	while(energy_to_consume >= BODYPART_COST[part])
 	{
-		energy_to_consume -= util.BODYPART_COST[part];
+		energy_to_consume -= BODYPART_COST[part];
 		energy_used += BODYPART_COST[part];
 		body_spec.push(part);
 		at_ndx = (at_ndx + 1) % mx_ndx;
