@@ -2,5 +2,25 @@
 	"esversion" : 6,
 	"node" : true,
 	"laxbreak" : true,
-	"eqnull" : true
+	"eqnull" : true,
+	"globals" : {
+		"ERR_NOT_IN_RANGE" : false,
+		"FIND_SOURCES" : false,
+		"FIND_STRUCTURES" : false,
+		"FIND_CONSTRUCTION_SITES" : false,
+		"FIND_SOURCES_ACTIVE" : false,
+		"FIND_MY_STRUCTURES" : false,
+		"RESOURCE_ENERGY" : false,
+		"STRUCTURE_TOWER" : false,
+		"STRUCTURE_EXTENSION" : false,
+		"STRUCTURE_SPAWN" : false,
+
+		"BODYPART_COST" : false,
+		"MOVE" : false,
+		"WORK" : false,
+		"CARRY" : false,
+
+		"Memory" : false,
+		"Game" : false
+	}
 }

@@ -53,6 +53,11 @@ function dealloc_harv( mining_map, harv_rec )
 //plan room mining
 function refresh_room_mining_plan(room_name)
 {
+	if(!Memory.mining_map || !Memory.mining_map[room_name])
+	{
+		notice(`Cannot plan for ${room_name}: room analysis not done`);
+		return;
+	}
 	let mine_map = Memory.mining_map[room_name];
 	// initialize mining plan if needed
 	if( null == mine_map.harvs )
