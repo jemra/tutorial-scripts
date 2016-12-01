@@ -1,3 +1,6 @@
+"use strict";
+const util = require('util');
+
 var roleUpgrader = {
 
     /** @param {Creep} creep **/
@@ -5,11 +8,11 @@ var roleUpgrader = {
 
         if(creep.memory.upgrading && creep.carry.energy === 0) {
             creep.memory.upgrading = false;
-            creep.say('harvesting');
+			util.set_doing_state(creep, "harvesting");
 	    }
 	    if(!creep.memory.upgrading && creep.carry.energy === creep.carryCapacity) {
 	        creep.memory.upgrading = true;
-	        creep.say('upgrading');
+			util.set_doing_state(creep, "upgrading");
 	    }
 
 	    if(creep.memory.upgrading) {

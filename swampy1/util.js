@@ -35,9 +35,20 @@ let XXXBODYPART_COST =
 	"claim": 600
 };
 
+function set_doing_state(creep, state)
+{
+	if(creep.memory.doing_state != state)
+	{
+		creep.say(`${state}!`);
+	}
+	creep.memory.doing_state = state;
+}
+
+
 module.exports = 
 {
 	getRandomInt : getRandomInt,
 	getRandomName : getRandomName,
+	set_doing_state : set_doing_state,
 };
 

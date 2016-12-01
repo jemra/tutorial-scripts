@@ -1,3 +1,7 @@
+"use strict";
+const util = require('util');
+
+
 var roleBuilder = {
 
     /** @param {Creep} creep **/
@@ -5,11 +9,11 @@ var roleBuilder = {
 
 	    if(creep.memory.building && creep.carry.energy === 0) {
             creep.memory.building = false;
-            creep.say('harvesting');
+			util.set_doing_state(creep, "harvesting");
 	    }
 	    if(!creep.memory.building && creep.carry.energy === creep.carryCapacity) {
 	        creep.memory.building = true;
-	        creep.say('building');
+			util.set_doing_state(creep, "building");
 	    }
 
 	    if(creep.memory.building) {

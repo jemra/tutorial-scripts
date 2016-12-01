@@ -6,15 +6,6 @@ var roleHarvester = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
-		function set_doing_state(state)
-		{
-			if(creep.memory.doing_state != state)
-			{
-				creep.say(`${state}!`);
-			}
-			creep.memory.doing_state = state;
-		}
-        
 	    if(creep.carry.energy < creep.carryCapacity) {
             var sources = creep.room.find(FIND_SOURCES_ACTIVE);
             if(creep.memory.harvest_from_node == null || creep.memory.harvest_from_node > sources.length)
@@ -22,7 +13,7 @@ var roleHarvester = {
                 creep.memory.harvest_from_node = util.getRandomInt(0, sources.length);
             }
             
-			set_doing_state("harvest");
+			util.set_doing_state(creep, "harvest");
             if(creep.harvest(sources[creep.memory.harvest_from_node]) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(sources[creep.memory.harvest_from_node]);
             }
@@ -37,14 +28,14 @@ var roleHarvester = {
                     }
             });
             if(targets.length > 0) {
-				set_doing_state("retrieve");
+				util.set_doing_state(creep, "retrieve");
                 if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0]);
                 }
             }
 			else
 			{
-				set_doing_state("park");
+				util.set_doing_state(creep, "park");
 				targets = creep.room.find(FIND_STRUCTURES, { filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN ); } });
 				if(targets.length > 0)
 					creep.moveTo(targets[0]);
