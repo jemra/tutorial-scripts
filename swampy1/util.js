@@ -51,11 +51,23 @@ function qPosDist(p1,p2)
 	return xdist*xdist + ydist*ydist;
 }
 
+//TODO: make it an obj with level, (0=off, 3=info, 1=error, 2=warning, 4=debug, 5=uper_debug)
+let mk_notice = function(domain)
+{
+	let prefix = domain + " ";
+	return function(textinfo)
+	{
+		console.log(domain + textinfo);
+	};
+};
+
+
 module.exports = 
 {
 	getRandomInt : getRandomInt,
 	getRandomName : getRandomName,
 	set_doing_state : set_doing_state,
-	qPosDist : qPosDist
+	qPosDist : qPosDist,
+	mk_notice : mk_notice
 };
 

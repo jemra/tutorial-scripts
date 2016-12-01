@@ -3,6 +3,7 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var lil_army = require('lil_army');
 var reports = require('reports');
+var mining_planner = require('mining_planner');
 
 
 function defendRoom(roomName) {
@@ -25,6 +26,12 @@ module.exports.loop = function () {
 	let cur_room_name = Object.keys(Game.rooms)[0];
 	let cur_room = Game.rooms[cur_room_name];
     lil_army.one_run("Spawn1");
+
+	if( null == Memory.mining_map)
+	{
+		//one time only?
+		mining_planner.analyze_room("Spawn1");
+	}
 
     var tower = cur_room.find( FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}})[0];
     if(tower) {
@@ -58,4 +65,11 @@ module.exports.loop = function () {
             roleBuilder.run(creep);
         }
     }
+
+	if((Game.time % 25) === 0)
+	{
+		mining_planner.refresh_room_mining_plan();
+		reports.report_creep_makes();
+	}
+
 };
