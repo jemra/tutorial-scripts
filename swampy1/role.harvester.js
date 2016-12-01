@@ -6,7 +6,7 @@ var roleHarvester = {
         
 	    if(creep.carry.energy < creep.carryCapacity) {
             var sources = creep.room.find(FIND_SOURCES_ACTIVE);
-            if(creep.memory.harvest_from_node == null || creep.memory.harvest_from_node > sources.length)
+            if(creep.memory.harvest_from_node === null || creep.memory.harvest_from_node > sources.length)
             {
                 creep.memory.harvest_from_node = getRandomInt(0, sources.length);
             }

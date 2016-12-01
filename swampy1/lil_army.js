@@ -1,9 +1,10 @@
+"use strict";
 const util = require("util");
 
 let notice = function(textinfo)
 {
-    console.log("lil " + textinfo)
-}
+    console.log("lil " + textinfo);
+};
 
 
 
@@ -59,7 +60,7 @@ function _make_creep(model, spawn_name)
 		part = getpart(at_ndx);
 	}
     
-    if( 0 != Game.spawns[spawn_name].canCreateCreep(body_spec) )
+    if( 0 !== Game.spawns[spawn_name].canCreateCreep(body_spec) )
         return;
 
     let newname = modl.prefix + util.getRandomName();

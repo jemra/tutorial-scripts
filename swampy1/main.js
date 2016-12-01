@@ -58,4 +58,4 @@ module.exports.loop = function () {
             roleBuilder.run(creep);
         }
     }
-}
+};

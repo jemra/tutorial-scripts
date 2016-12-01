@@ -23,7 +23,7 @@ function report_creep_makes()
 		for(let part in body)
 		{
 			energy_rating += BODYPART_COST[part] * body[part];
-			body_str.push(`${part}: ${body[part]}`)
+			body_str.push(`${part}: ${body[part]}`);
 		}
 
 		energy_rating = parseInt(energy_rating);
@@ -37,7 +37,7 @@ function report_creep_makes()
 			let res = a.model.localeCompare(b.model);
 			if(res)
 				return res;
-			return a.energy_rating - b.energy_rating
+			return a.energy_rating - b.energy_rating;
 		});
 	//print
 	for( let ndx in toprint)
