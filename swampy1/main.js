@@ -6,6 +6,9 @@ var reports = require('reports');
 var mining_planner = require('mining_planner');
 
 
+roleHarvester.init(mining_planner.request_mining_target);
+
+
 function defendRoom(roomName) {
 
 	var hostiles = Game.rooms[roomName].find(FIND_HOSTILE_CREEPS);
@@ -68,7 +71,7 @@ module.exports.loop = function () {
 
 	if((Game.time % 25) === 0)
 	{
-		mining_planner.refresh_room_mining_plan("Spawn1");
+		mining_planner.refresh_room_mining_plan(cur_room_name);
 		reports.report_creep_makes();
 	}
 

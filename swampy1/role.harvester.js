@@ -1,24 +1,42 @@
 "use strict";
 const util = require('util');
 
-var roleHarvester = {
+let roleHarvester = {
+
+	alloc_func : null,
+
+	init : function( work_allcator )
+	{
+		roleHarvester.alloc_func = work_allcator;
+	},
 
     /** @param {Creep} creep **/
     run: function(creep) {
-
 	    if(creep.carry.energy < creep.carryCapacity) {
-            var sources = creep.room.find(FIND_SOURCES_ACTIVE);
-            if(creep.memory.harvest_from_node == null || creep.memory.harvest_from_node > sources.length)
-            {
-                creep.memory.harvest_from_node = util.getRandomInt(0, sources.length);
-            }
+
+			if(creep.memory.harvest_from_node == null )
+			{
+				if( roleHarvester.alloc_func )
+				{
+					creep.memory.harvest_from_node = roleHarvester.alloc_func(creep);
+				}
+			
+				if(creep.memory.harvest_from_node == null )
+				{
+					var sources = creep.room.find(FIND_SOURCES_ACTIVE);
+					creep.memory.harvest_from_node = sources[util.getRandomInt(0, sources.length)].id;
+				}
+			}
+
+			let source = Game.getObjectById(creep.memory.harvest_from_node);
 
 			util.set_doing_state(creep, "harvest");
-            if(creep.harvest(sources[creep.memory.harvest_from_node]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[creep.memory.harvest_from_node]);
+            if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(source);
             }
         }
-        else {
+        else
+		{
             var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION 
