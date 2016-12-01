@@ -68,7 +68,7 @@ module.exports.loop = function () {
 
 	if((Game.time % 25) === 0)
 	{
-		mining_planner.refresh_room_mining_plan();
+		mining_planner.refresh_room_mining_plan("Spawn1");
 		reports.report_creep_makes();
 	}
 
