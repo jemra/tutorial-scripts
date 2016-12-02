@@ -1,6 +1,5 @@
 "use strict";
 const util = require('util');
-const _ = require('lodash');
 
 const notice = util.mk_notice("mining_planner");
 
