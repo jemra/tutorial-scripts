@@ -34,7 +34,7 @@ module.exports.loop = function () {
 	if( null == Memory.mining_map)
 	{
 		//one time only?
-		mining_planner.analyze_room("Spawn1");
+		mining_planner.analyze_room("sim");
 	}
 
     var tower = cur_room.find( FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}})[0];

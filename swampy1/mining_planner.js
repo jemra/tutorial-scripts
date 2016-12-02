@@ -21,6 +21,7 @@ function analyze_room(room_name)
 		let source = sources[ndx];
 		source.dis_to_spawn = util.qPosDist(spawn.pos, source.pos);
 	}
+	//sort nearest to furthest
 	sources = sources.sort((a,b) => a.dis_to_spawn - b.dis_to_spawn);
 	sources = sources.map((src) => ({id:src.id, dist:src.dis_to_spawn, harvs:{}}) );
 	sources.forEach( (source) => notice(`Source ${source.id} Distance to spawn = ${source.dist}`));
