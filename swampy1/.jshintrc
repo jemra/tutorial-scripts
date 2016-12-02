@@ -10,6 +10,8 @@
 		"FIND_CONSTRUCTION_SITES" : false,
 		"FIND_SOURCES_ACTIVE" : false,
 		"FIND_MY_STRUCTURES" : false,
+		"FIND_MY_CREEPS" : false,
+
 		"RESOURCE_ENERGY" : false,
 		"STRUCTURE_TOWER" : false,
 		"STRUCTURE_EXTENSION" : false,

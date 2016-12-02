@@ -48,6 +48,11 @@ function dealloc_harv( mining_map, harv_rec )
 	//remove from map
 	notice(`dealloc harv ${harv_rec.name} from map room ${mining_map.room_name}`);
 	delete mining_map.harvs[harv_rec.name];
+
+	if(Memory.creeps[harv_rec.name])
+	{
+		delete Memory.creeps[harv_rec.name].harvest_from_src_id;
+	}
 }
 
 //plan room mining
@@ -128,7 +133,15 @@ function reset_mining_plan(room_name)
 			dealloc_harv(mine_map, mine_map.harvs[name]);
 		}
 	}
-	//allocated harvs are all that is left now
+
+	let room = Game.rooms[room_name];
+    var room_creeps = room.find( FIND_MY_CREEPS);
+	for( let ndx in room_creeps)
+	{
+		let nm = room_creeps[ndx].name;
+		if( nm && Memory.creeps[nm] )
+			delete Memory.creeps[ nm ].harvest_from_src_id;
+	}
 }
 //request mining target(room, creep)
 function request_mining_target(creep)
