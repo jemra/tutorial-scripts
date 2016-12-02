@@ -136,7 +136,7 @@ function plan_all_squads()
 	}
 }
 
-var roleDefense = {
+var run_roleDefense = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -179,6 +179,6 @@ var roleDefense = {
 
 module.exports = {
 	plan_all_squads : plan_all_squads,
-	roleDefense : roleDefense,
+	run : run_roleDefense,
 };
 
