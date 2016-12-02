@@ -38,9 +38,8 @@ let models =
     },
 	"killbot" : {
         "body" : [	TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,
-					TOUGH,TOUGH,
-					MOVE,MOVE,MOVE,
-					ATTACK],
+					MOVE,MOVE,
+					RANGED_ATTACK],
         "role" : "defense",
 		"prefix" : "bkill_"
 	}

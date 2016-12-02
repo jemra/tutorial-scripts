@@ -24,6 +24,7 @@
 		"CARRY" : false,
 		"TOUGH" : false,
 		"ATTACK" : false,
+		"RANGED_ATTACK" : false,
 
 		"Memory" : false,
 		"Game" : false
