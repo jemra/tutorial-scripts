@@ -136,46 +136,43 @@ function plan_all_squads()
 	}
 }
 
-var run_roleDefense = {
-
-    /** @param {Creep} creep **/
-    run: function(creep) {
-		if(!creep.memory.belongs_to_squad || !Memory.squads[creep.memory.belongs_to_squad])
+function run_roleDefense(creep)
+{
+	if(!creep.memory.belongs_to_squad || !Memory.squads[creep.memory.belongs_to_squad])
+	{
+		creep.memory.belongs_to_squad = null;
+		for(let name in Memory.squads)
 		{
-			creep.memory.belongs_to_squad = null;
-			for(let name in Memory.squads)
-			{
-				if( _try_insert_creep_to_squad(creep, Memory.squads[name]) )
-					break;
-			}
-			if( ! creep.memory.belongs_to_squad )
-			{
-				let newsquad = _form_new_squad(creep.pos.roomName);
-				_try_insert_creep_to_squad(creep, newsquad);
-			}
+			if( _try_insert_creep_to_squad(creep, Memory.squads[name]) )
+				break;
 		}
-
-		if(creep.memory.belongs_to_squad)
+		if( ! creep.memory.belongs_to_squad )
 		{
-			let squad = Memory.squads[creep.memory.belongs_to_squad];
-			let target = creep.real_target;
-			if( ! target)
-			{
-				notice('Stash didnt work');
-				target = Game.getObjectById(squad.target);
-			}
-			else
-			{
-				notice('Stash did work');
-			}
-			_squad_run_creep(squad, creep, target);
+			let newsquad = _form_new_squad(creep.pos.roomName);
+			_try_insert_creep_to_squad(creep, newsquad);
+		}
+	}
+
+	if(creep.memory.belongs_to_squad)
+	{
+		let squad = Memory.squads[creep.memory.belongs_to_squad];
+		let target = creep.real_target;
+		if( ! target)
+		{
+			notice('Stash didnt work');
+			target = Game.getObjectById(squad.target);
 		}
 		else
 		{
-			notice("Could not assign creep ${creep.name} to any squadron!!!");
+			notice('Stash did work');
 		}
+		_squad_run_creep(squad, creep, target);
 	}
-};
+	else
+	{
+		notice("Could not assign creep ${creep.name} to any squadron!!!");
+	}
+}
 
 module.exports = {
 	plan_all_squads : plan_all_squads,
