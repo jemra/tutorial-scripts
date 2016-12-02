@@ -11,6 +11,7 @@
 		"FIND_SOURCES_ACTIVE" : false,
 		"FIND_MY_STRUCTURES" : false,
 		"FIND_MY_CREEPS" : false,
+		"FIND_HOSTILE_CREEPS" : false,
 
 		"RESOURCE_ENERGY" : false,
 		"STRUCTURE_TOWER" : false,
@@ -21,6 +22,8 @@
 		"MOVE" : false,
 		"WORK" : false,
 		"CARRY" : false,
+		"TOUGH" : false,
+		"ATTACK" : false,
 
 		"Memory" : false,
 		"Game" : false

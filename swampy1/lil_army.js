@@ -11,6 +11,7 @@ let notice = function(textinfo)
 let _army_composition = 
 [
     {"model":"baby_harvester", "count" : 2},
+    {"model":"killbot", "count" : 1},
     {"model":"baby_builder", "count": 1},
     {"model":"baby_upgrader", "count" : 1},
     {"model":"baby_harvester", "count" : 6},
@@ -34,7 +35,14 @@ let models =
         "body" : [MOVE,CARRY,WORK,WORK],
         "role" : "upgrader",
 		"prefix" : "bupgd_"
-    }
+    },
+	"killbot" : {
+        "body" : [MOVE,MOVE,TOUGH,TOUGH,TOUGH,TOUGH,
+							TOUGH,TOUGH,TOUGH,TOUGH,
+							TOUGH,TOUGH,TOUGH,TOUGH,ATTACK],
+        "role" : "defense",
+		"prefix" : "bkill_"
+	}
 };
 
 function _make_creep(model, spawn_name)

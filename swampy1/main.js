@@ -1,6 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+var roleDefense = require('role.defense');
 var lil_army = require('lil_army');
 var reports = require('reports');
 var mining_planner = require('mining_planner');
@@ -61,11 +62,14 @@ module.exports.loop = function () {
         if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep);
         }
-        if(creep.memory.role == 'upgrader') {
+		else if(creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);
         }
-        if(creep.memory.role == 'builder') {
+		else if(creep.memory.role == 'builder') {
             roleBuilder.run(creep);
+        }
+		else if(creep.memory.role == 'defense') {
+            roleDefense.run(creep);
         }
     }
 
