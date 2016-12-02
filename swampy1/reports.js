@@ -57,7 +57,7 @@ function report_creep_makes(longform)
 		let outp="";
 		for( let ndx in compr)
 		{
-			let count = toprint[ndx];
+			let count = compr[ndx];
 			outp += `${ndx}:${count}|`;
 		}
 		console.log(outp);
