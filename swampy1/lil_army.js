@@ -37,9 +37,10 @@ let models =
 		"prefix" : "bupgd_"
     },
 	"killbot" : {
-        "body" : [MOVE,MOVE,TOUGH,TOUGH,TOUGH,TOUGH,
-							TOUGH,TOUGH,TOUGH,TOUGH,
-							TOUGH,TOUGH,TOUGH,TOUGH,ATTACK],
+        "body" : [	TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,
+					TOUGH,TOUGH,
+					MOVE,MOVE,MOVE,
+					ATTACK],
         "role" : "defense",
 		"prefix" : "bkill_"
 	}
