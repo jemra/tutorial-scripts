@@ -1,6 +1,6 @@
 const util = require("util");
 
-function report_creep_makes()
+function report_creep_makes(longform)
 {
 	var toprint = [];
     for(var name in Game.creeps) {
@@ -40,10 +40,23 @@ function report_creep_makes()
 			return a.energy_rating - b.energy_rating;
 		});
 	//print
-	for( let ndx in toprint)
+	if(!longform)
 	{
-		let trp = toprint[ndx];
-		console.log(`${trp.Crpname} [${trp.energy_rating}] ${trp.role} ${trp.model} (${trp.body_str})`);
+		let outp="";
+		for( let ndx in toprint)
+		{
+			let trp = toprint[ndx];
+			outp += `[${trp.energy_rating}]:${trp.role}|`;
+		}
+		console.log(outp);
+	}
+	else
+	{
+		for( let ndx in toprint)
+		{
+			let trp = toprint[ndx];
+			console.log(`${trp.Crpname} [${trp.energy_rating}] ${trp.role} ${trp.model} (${trp.body_str})`);
+		}
 	}
 }
 
