@@ -1,5 +1,6 @@
 "use strict";
 const util = require('util');
+const _ = require('lodash');
 
 const notice = util.mk_notice("mining_planner");
 
@@ -77,7 +78,7 @@ function refresh_room_mining_plan(room_name)
 	//allocated harvs are all that is left now
 }
 
-function allocate_creep_to_mine(mine_map, creep)
+function _allocate_creep_to_mine(mine_map, creep)
 { 
 	let room_name = mine_map.room_name;
 	//search through sources for which one has not enough harvies
@@ -87,7 +88,7 @@ function allocate_creep_to_mine(mine_map, creep)
 	{
 		let source = mine_map.sources[source_id];
 		let num_needed = source.required_harvesters - source.harvs.length;
-		if( null == go_to_source || num_needed> most_needed)
+		if( null == go_to_source || num_needed > most_needed)
 		{
 			most_needed = num_needed;
 			go_to_source = source;
@@ -100,15 +101,36 @@ function allocate_creep_to_mine(mine_map, creep)
 	}
 	else
 	{
-		//remove from source
+		//assign to source
 		let harv_rec = {name:creep.name, assigned_to: go_to_source.id};
-		notice(`Alloc harv ${creep.name} to source ${go_to_source.id} in room ${room_name}`);
+		notice(`Alloc harv ${creep.name} to source ${go_to_source.id} in room ${room_name} nn${most_needed}`);
 		mine_map.sources[go_to_source.id].harvs[creep.name] = harv_rec;
 		mine_map.harvs[creep.name] = harv_rec;
 		return go_to_source.id;
 	}
 }
 
+function reset_mining_plan(room_name)
+{
+	if(!Memory.mining_map || !Memory.mining_map[room_name])
+	{
+		notice(`Cannot refresh for ${room_name}: room analysis not done`);
+		return;
+	}
+	let mine_map = Memory.mining_map[room_name];
+	// initialize mining plan if needed
+	if( null == mine_map.harvs )
+		mine_map.harvs = {};
+	else
+	{
+		// or else garbage collect for dead/missing harvesters
+		for(let name in mine_map.harvs)
+		{
+			dealloc_harv(mine_map, mine_map.harvs[name]);
+		}
+	}
+	//allocated harvs are all that is left now
+}
 //request mining target(room, creep)
 function request_mining_target(creep)
 {
@@ -126,13 +148,14 @@ function request_mining_target(creep)
 	}
 	// add to miners set
 	// allocate to proper node
-	return allocate_creep_to_mine(mine_map, creep);
+	return _allocate_creep_to_mine(mine_map, creep);
 }
 
 module.exports = 
 {
 	analyze_room : analyze_room,
 	refresh_room_mining_plan : refresh_room_mining_plan,
-	request_mining_target: request_mining_target
+	request_mining_target: request_mining_target,
+	reset_mining_plan : reset_mining_plan,
 };
 
