@@ -31,10 +31,10 @@ module.exports.loop = function () {
 	let cur_room = Game.rooms[cur_room_name];
     lil_army.one_run("Spawn1");
 
-	if( null == Memory.mining_map)
+	if( null == Memory.mining_map || null == Memory.mining_map[cur_room_name] )
 	{
 		//one time only?
-		mining_planner.analyze_room("sim");
+		mining_planner.analyze_room(cur_room_name);
 	}
 
     var tower = cur_room.find( FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}})[0];
