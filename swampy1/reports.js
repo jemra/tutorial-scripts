@@ -42,11 +42,23 @@ function report_creep_makes(longform)
 	//print
 	if(!longform)
 	{
-		let outp="";
-		for( let ndx in toprint)
+		//compress energy,type => count
+		let compr = {};
+		for(let ndx in toprint)
 		{
 			let trp = toprint[ndx];
-			outp += `[${trp.energy_rating}]:${trp.role}|`;
+			let keyn = `${trp.energy_rating}-${trp.role}`;
+			if(!compr[keyn])
+				compr[keyn] = 1;
+			else
+				++ compr[keyn];
+		}
+
+		let outp="";
+		for( let ndx in compr)
+		{
+			let count = toprint[ndx];
+			outp += `${ndx}:${count}|`;
 		}
 		console.log(outp);
 	}
