@@ -19,6 +19,7 @@ let _army_composition =
     {"model":"baby_upgrader", "count" : 2},
     {"model":"killbot", "count" : 9},
     {"model":"baby_upgrader", "count" : 3},
+    {"model":"baby_harvester", "count" : 9},
 ];
 
 let models = 
@@ -41,6 +42,7 @@ let models =
 	"killbot" : {
         "body" : [	TOUGH, MOVE, MOVE, RANGED_ATTACK ],
         "role" : "defense",
+		"min_energy" : 500,
 		"prefix" : "bkill_",
 		"build" : function(energy)
 		{
@@ -78,11 +80,10 @@ let models =
 	}
 };
 
-function _make_creep(model, spawn_name)
+function _make_creep(model, spawn_name, energy_to_consume)
 {
     let modl = models[model];
 	let body_spec = [];
-	let energy_to_consume = Game.spawns[spawn_name].room.energyCapacityAvailable;
 	let at_ndx = 0;
 	let mx_ndx = modl.body.length; 
 	let getpart = at_ndx => modl.body[at_ndx];
@@ -130,13 +131,14 @@ function _make_creep(model, spawn_name)
     return ret;
 }
 
-function next_missing(inventory)
+function next_missing(inventory, energy)
 {
     for(let x=0; x<_army_composition.length; ++x )
     {
         let spec = _army_composition[x];
         let cur_count = inventory[spec.model];
-        if( cur_count < spec.count )
+        if( cur_count < spec.count &&
+		  	(null == spec.min_energy || energy >= spec.min_energy))
         {
             return spec.model;
         }
@@ -171,10 +173,11 @@ function one_run(spawn_name)
 		}
 	}
         
+	let energy_to_consume = Game.spawns[spawn_name].room.energyCapacityAvailable;
     let inv = compute_inventory();
-    let needed = next_missing(inv);
+    let needed = next_missing(inv, energy_to_consume);
     if(needed)
-        _make_creep(needed, spawn_name);
+        _make_creep(needed, spawn_name, energy_to_consume);
 }
 
 module.exports = {
