@@ -178,7 +178,7 @@ function one_run(spawn_name)
 		let enrgy = Game.spawns[spawn_name].room.energyAvailable;
 		if(enrgy < 300)
 			enrgy = 300;
-        _make_creep("baby_harvester", "recovery", enrgy);
+        _make_creep("baby_harvester", spawn_name, enrgy);
 		return;
 	}
 
