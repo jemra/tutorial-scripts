@@ -47,13 +47,13 @@ let models =
 			//proportions of TOUGH=10, MOVE=50, RANGED_ATTACK=150
 			//  for every 400, make: 5 tough, 4 move, 1 RA 
 			let bwant = {
-				RANGED_ATTACK : parseInt(energy / 400),
-				MOVE : parseInt(energy / 100),
-				TOUGH : parseInt(energy / 80)
+				"ranged_attack" : parseInt(energy / 400),
+				"move" : parseInt(energy / 100),
+				"tough" : parseInt(energy / 80)
 			};
 			if(bwant[RANGED_ATTACK] < 1)
 				bwant[RANGED_ATTACK] = 1;
-			let bmap = { RANGED_ATTACK:0, MOVE:0, TOUGH:0};
+			let bmap = { "ranged_attack":0, "move":0, "tough":0};
 notice(`for energy at ${energy} want:`);
 notice(JSON.stringify(bwant));
 			for( let adding_part in [RANGED_ATTACK, MOVE, TOUGH] )
