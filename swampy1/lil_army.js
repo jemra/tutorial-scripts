@@ -173,7 +173,7 @@ function one_run(spawn_name)
 		}
 	}
 
-	if( Memory.creeps.length === 0 )
+	if( Game.creeps.length === 0 )
 	{
 		let enrgy = Game.spawns[spawn_name].room.energyAvailable;
 		if(enrgy < 300)
