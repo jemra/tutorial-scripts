@@ -172,7 +172,16 @@ function one_run(spawn_name)
 			//console.log('Clearing non-existing creep memory:', name);
 		}
 	}
-        
+
+	if( Memory.creeps.length === 0 )
+	{
+		let enrgy = Game.spawns[spawn_name].room.energyAvailable;
+		if(enrgy < 300)
+			enrgy = 300;
+        _make_creep("baby_harvester", "recovery", enrgy);
+		return;
+	}
+
 	let energy_to_consume = Game.spawns[spawn_name].room.energyCapacityAvailable;
     let inv = compute_inventory();
     let needed = next_missing(inv, energy_to_consume);
@@ -181,6 +190,7 @@ function one_run(spawn_name)
 }
 
 module.exports = {
-    one_run : one_run
+    one_run : one_run,
+	make_creep : _make_creep
 };
 
