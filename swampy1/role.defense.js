@@ -78,6 +78,12 @@ function _plan_squad(squad_name, enemies)
 			_remove_creep_from_squad(name, squad);
 	let squad_size = Object.keys(squad.members);
 
+	if( squad_size < 1 )
+	{
+		_delete_squad(squad);
+		return;
+	}
+
 	if( squad.mode === "form" )
 	{
 		if( squad_size < squad.members_needed )
