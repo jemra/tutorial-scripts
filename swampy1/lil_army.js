@@ -25,7 +25,7 @@ let _army_composition =
 let models = 
 {
     "baby_builder" : {
-        "body" : [MOVE,WORK,CARRY,WORK],
+        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,WORK],
         "role" : "builder",
 		"prefix" : "bbldr_"
     },
