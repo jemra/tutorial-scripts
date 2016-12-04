@@ -39,11 +39,35 @@ let models =
 		"prefix" : "bupgd_"
     },
 	"killbot" : {
-        "body" : [	TOUGH,TOUGH,TOUGH,
-					MOVE,MOVE,
-					RANGED_ATTACK],
+        "body" : [	TOUGH, MOVE, MOVE, RANGED_ATTACK ],
         "role" : "defense",
-		"prefix" : "bkill_"
+		"prefix" : "bkill_",
+		"build" : function(energy)
+		{
+			//proportions of TOUGH=10, MOVE=50, RANGED_ATTACK=150
+			//  for every 400, make: 5 tough, 4 move, 1 RA 
+			let bwant = {
+				RANGED_ATTACK : parseInt(energy / 400),
+				MOVE : parseInt(energy / 100),
+				TOUGH : parseInt(energy / 80)
+			};
+			let bmap = { RANGED_ATTACK:0, MOVE:0, TOUGH:0};
+			for( let adding_part in [RANGED_ATTACK, MOVE, TOUGH] )
+			{
+				while(energy > 0)
+				{
+					bmap[adding_part] += 1;
+					energy -= BODYPART_COST[adding_part];
+				}
+			}
+			let ret_body = [];
+			for( let adding_part in [TOUGH, MOVE, RANGED_ATTACK] )
+			{
+				for(let x=0; x< bmap[adding_part]; ++x)
+					ret_body.push(adding_part);
+			}
+			return ret_body;
+		}
 	}
 };
 
@@ -64,13 +88,21 @@ function _make_creep(model, spawn_name)
 		console.log(`Energy Class updated to ${Memory.max_energy}`);
 	}
 	
-	while(energy_to_consume >= BODYPART_COST[part])
+	if( modl.build)
 	{
-		energy_to_consume -= BODYPART_COST[part];
-		energy_used += BODYPART_COST[part];
-		body_spec.push(part);
-		at_ndx = (at_ndx + 1) % mx_ndx;
-		part = getpart(at_ndx);
+		body_spec = modl.build(energy_to_consume);
+		energy_used = energy_to_consume;//TODO: do better
+	}
+	else
+	{
+		while(energy_to_consume >= BODYPART_COST[part])
+		{
+			energy_to_consume -= BODYPART_COST[part];
+			energy_used += BODYPART_COST[part];
+			body_spec.push(part);
+			at_ndx = (at_ndx + 1) % mx_ndx;
+			part = getpart(at_ndx);
+		}
 	}
     
     if( 0 !== Game.spawns[spawn_name].canCreateCreep(body_spec) )
