@@ -54,32 +54,25 @@ let models =
 			if(bwant[RANGED_ATTACK] < 1)
 				bwant[RANGED_ATTACK] = 1;
 			let bmap = { "ranged_attack":0, "move":0, "tough":0};
-notice(`for energy at ${energy} want:`);
-notice(JSON.stringify(bwant));
 			for( let adding_part in {ranged_attack:1, move:1, tough:1} )
 			{
-notice(`consider ${adding_part};; ${energy} is left;; want ${bwant[adding_part]}`);
 				for(let x = 0; x < bwant[adding_part]; ++x )
 				{
-notice(`add on ${adding_part}?, ${energy} is left`);
 					if( energy >= BODYPART_COST[adding_part])
 					{
 						bmap[adding_part] += 1;
 						energy -= BODYPART_COST[adding_part];
-notice(`add on ${adding_part}, ${energy} is left`);
 					}
 					else
 						break;
 				}
 			}
-notice(JSON.stringify(bmap));
 			let ret_body = [];
 			for( let adding_part in {tough:1, move:1, ranged_attack:1} )
 			{
 				for(let x=0; x< bmap[adding_part]; ++x)
 					ret_body.push(adding_part);
 			}
-notice(JSON.stringify(ret_body));
 			return ret_body;
 		}
 	}
