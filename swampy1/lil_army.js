@@ -51,7 +51,10 @@ let models =
 				MOVE : parseInt(energy / 100),
 				TOUGH : parseInt(energy / 80)
 			};
+			if(bwant[RANGED_ATTACK] < 1)
+				bwant[RANGED_ATTACK] = 1;
 			let bmap = { RANGED_ATTACK:0, MOVE:0, TOUGH:0};
+notice(`for energy at ${energy} want:`);
 notice(JSON.stringify(bwant));
 			for( let adding_part in [RANGED_ATTACK, MOVE, TOUGH] )
 			{
@@ -61,6 +64,7 @@ notice(JSON.stringify(bwant));
 					{
 						bmap[adding_part] += 1;
 						energy -= BODYPART_COST[adding_part];
+notice(`add on ${adding_part}, ${energy} is left`);
 					}
 					else
 						break;
