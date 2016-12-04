@@ -93,7 +93,7 @@ function _allocate_creep_to_mine(mine_map, creep)
 	{
 		let source = mine_map.sources[source_id];
 		let num_needed = source.required_harvesters - Object.keys(source.harvs).length;
-		if( null == go_to_source || num_needed > 0)
+		if( num_needed > 0)
 		{
 			go_to_source = source;
 			break;
