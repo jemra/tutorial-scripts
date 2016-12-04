@@ -15,7 +15,7 @@ function _form_new_squad(room_name)
 		"members" : {},
 		"target" : null,
 		"mode" : "form", // "form", "fight", "rally"
-		"rally_point" : {"x" : 25, "y" : 18},
+		"rally_point" : {"x" : 20, "y" : 27},
 	};
 	Memory.squads[new_squad.name] = new_squad;
 	notice(`Form new squad ${new_squad.name}`);
@@ -30,8 +30,16 @@ function _squad_run_creep(squad, creep, target)
 	}
 	else
 	{
-		if(creep.rangedAttack(target) === ERR_NOT_IN_RANGE) {
+		let result = creep.rangedAttack(target);
+		if( result === OK )
+		{
+		}
+		else if(creep.rangedAttack(target) === ERR_NOT_IN_RANGE) {
 			creep.moveTo(target);
+		}
+		else
+		{
+			notice(`War Fail ${creep.name}.rangedAttack = ${result}`);
 		}
 	}
 }
@@ -102,6 +110,7 @@ function _plan_squad(squad_name, enemies)
 		{
 			squad.mode = "fight";
 			squad.target = enemies[0].id;
+			notice(`Squad ${squad.name} to Fight ${squad.target}`);
 			return;
 		}
 	}
@@ -117,11 +126,6 @@ function _plan_squad(squad_name, enemies)
 				squad.target = enemies[0].id;
 				//real_target = Game.getObjectById(squad.target);
 			}
-			//for( let name in squad.members)
-			//{
-			//	Game.creeps[name].real_target = real_target;//temporary memory???
-			//	//TODO: stash lambda's in each creep
-			//}
 		}
 
 	}

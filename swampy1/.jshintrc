@@ -5,6 +5,8 @@
 	"eqnull" : true,
 	"globals" : {
 		"ERR_NOT_IN_RANGE" : false,
+		"OK" : false,
+
 		"FIND_SOURCES" : false,
 		"FIND_STRUCTURES" : false,
 		"FIND_CONSTRUCTION_SITES" : false,
