@@ -1,4 +1,6 @@
 
+harverster: dont short hit offloads !!!
+
 all gatherers add to mining plan
 builders idle as harvies(?)
 	more efficient building plan? terrible loop as of now
