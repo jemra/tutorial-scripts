@@ -52,6 +52,7 @@ let models =
 				TOUGH : parseInt(energy / 80)
 			};
 			let bmap = { RANGED_ATTACK:0, MOVE:0, TOUGH:0};
+notice(JSON.stringify(bwant));
 			for( let adding_part in [RANGED_ATTACK, MOVE, TOUGH] )
 			{
 				for(let x = 0; x < bwant[adding_part]; ++x )
@@ -65,12 +66,14 @@ let models =
 						break;
 				}
 			}
+notice(JSON.stringify(bmap));
 			let ret_body = [];
 			for( let adding_part in [TOUGH, MOVE, RANGED_ATTACK] )
 			{
 				for(let x=0; x< bmap[adding_part]; ++x)
 					ret_body.push(adding_part);
 			}
+notice(JSON.stringify(ret_body));
 			return ret_body;
 		}
 	}
