@@ -56,7 +56,7 @@ let models =
 			let bmap = { "ranged_attack":0, "move":0, "tough":0};
 notice(`for energy at ${energy} want:`);
 notice(JSON.stringify(bwant));
-			for( let adding_part in {ranged_attack:1, move:1, tough:1] )
+			for( let adding_part in {ranged_attack:1, move:1, tough:1} )
 			{
 notice(`consider ${adding_part};; ${energy} is left;; want ${bwant[adding_part]}`);
 				for(let x = 0; x < bwant[adding_part]; ++x )
