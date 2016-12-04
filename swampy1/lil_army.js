@@ -54,10 +54,15 @@ let models =
 			let bmap = { RANGED_ATTACK:0, MOVE:0, TOUGH:0};
 			for( let adding_part in [RANGED_ATTACK, MOVE, TOUGH] )
 			{
-				while(energy > 0)
+				for(let x = 0; x < bwant[adding_part]; ++x )
 				{
-					bmap[adding_part] += 1;
-					energy -= BODYPART_COST[adding_part];
+					if( energy >= BODYPART_COST[adding_part])
+					{
+						bmap[adding_part] += 1;
+						energy -= BODYPART_COST[adding_part];
+					}
+					else
+						break;
 				}
 			}
 			let ret_body = [];
@@ -88,7 +93,7 @@ function _make_creep(model, spawn_name)
 		console.log(`Energy Class updated to ${Memory.max_energy}`);
 	}
 	
-	if( modl.build)
+	if( modl.build != null )
 	{
 		body_spec = modl.build(energy_to_consume);
 		energy_used = energy_to_consume;//TODO: do better
