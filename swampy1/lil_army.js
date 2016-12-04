@@ -60,6 +60,7 @@ notice(JSON.stringify(bwant));
 			{
 				for(let x = 0; x < bwant[adding_part]; ++x )
 				{
+notice(`add on ${adding_part}?, ${energy} is left`);
 					if( energy >= BODYPART_COST[adding_part])
 					{
 						bmap[adding_part] += 1;
