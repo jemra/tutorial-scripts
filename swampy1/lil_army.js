@@ -105,9 +105,13 @@ function _make_creep(model, spawn_name)
 		}
 	}
     
-    if( 0 !== Game.spawns[spawn_name].canCreateCreep(body_spec) )
+	let why_not_can = Game.spawns[spawn_name].canCreateCreep(body_spec);
+    if( 0 !== why_not_can )
+	{
+		if( why_not_can !== -6)
+			notice( `Failed to spec build ${body_spec.join(",")} : ${why_not_can}}` );
         return;
-
+	}
     let newname = modl.prefix + util.getRandomName();
     notice("Making a \"" + model + "\" " + newname + ` (${energy_used})`);
 	//notice("  spec = " + body_spec.join(","));
