@@ -15,7 +15,7 @@ let roleHarvester = {
 	{
 		if( creep.memory.mode === "retrieve")
 		{
-			if(creep.carry.energy === 0 )
+			if(creep.carry.energy < 1 )
 			{
 				creep.memory.mode = "harvest";
 			}

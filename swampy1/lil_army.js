@@ -14,12 +14,11 @@ let _army_composition =
     {"model":"baby_builder", "count": 1},
     {"model":"baby_upgrader", "count" : 1},
     {"model":"baby_harvester", "count" : 6},
-    {"model":"killbot", "count" : 8},
     {"model":"baby_builder", "count": 3},
     {"model":"baby_upgrader", "count" : 2},
-    {"model":"killbot", "count" : 9},
     {"model":"baby_upgrader", "count" : 3},
-    {"model":"baby_harvester", "count" : 9},
+    {"model":"baby_harvester", "count" : 20},
+    {"model":"killbot", "count" : 9},
 ];
 
 let models = 
