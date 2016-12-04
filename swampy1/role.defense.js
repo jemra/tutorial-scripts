@@ -30,7 +30,7 @@ function _squad_run_creep(squad, creep, target)
 	}
 	else
 	{
-		if(creep.attack(target) === ERR_NOT_IN_RANGE) {
+		if(creep.rangedAttack(target) === ERR_NOT_IN_RANGE) {
 			creep.moveTo(target);
 		}
 	}
