@@ -11,9 +11,25 @@ let roleHarvester = {
 	},
 
     /** @param {Creep} creep **/
-    run: function(creep) {
-	    if(creep.carry.energy < creep.carryCapacity) {
+    run: function(creep)
+	{
+		if( creep.memory.mode === "retrieve")
+		{
+			if(creep.carry.energy === 0 )
+			{
+				creep.memory.mode = "harvest";
+			}
+		}
+		else if( creep.memory.mode === "harvest" )
+		{
+			if(creep.carry.energy >= creep.carryCapacity)
+			{
+				creep.memory.mode = "retrieve";
+			}
+		}
 
+	    if( creep.memory.mode === "harvest" )
+		{
 			if(creep.memory.harvest_from_src_id == null )
 			{
 				if( roleHarvester.alloc_func )
