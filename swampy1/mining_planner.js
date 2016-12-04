@@ -10,7 +10,7 @@ function analyze_room(room_name)
 {
 	if( null == Memory.mining_map)
 		Memory.mining_map = {};
-	Memory.mining_map[room_name] = {room_name:room_name};
+	Memory.mining_map[room_name] = {room_name:room_name, harvs:{}};
 	let room = Game.rooms[room_name];
     var spawn = room.find( FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_SPAWN}})[0];
 	let sources = room.find(FIND_SOURCES);
