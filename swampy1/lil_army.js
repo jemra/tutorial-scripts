@@ -12,7 +12,7 @@ let _army_composition =
 [
     {"model":"baby_harvester", "count" : 2},
     {"model":"baby_builder", "count": 1},
-    {"model":"killbot", "count" : 5},
+    {"model":"killbot", "count" : 8},
     {"model":"baby_upgrader", "count" : 1},
     {"model":"baby_harvester", "count" : 6},
     {"model":"baby_builder", "count": 3},
@@ -39,8 +39,8 @@ let models =
 		"prefix" : "bupgd_"
     },
 	"killbot" : {
-        "body" : [	TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,
-					MOVE,MOVE,
+        "body" : [	TOUGH,TOUGH,TOUGH,
+					MOVE,MOVE,MOVE,
 					RANGED_ATTACK],
         "role" : "defense",
 		"prefix" : "bkill_"

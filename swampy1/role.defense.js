@@ -11,7 +11,7 @@ function _form_new_squad(room_name)
 	let new_squad = {
 		"name" : "squad_" + util.getRandomName(),
 		"room_name" : room_name,
-		"members_needed" : 5,
+		"members_needed" : 8,
 		"members" : {},
 		"target" : null,
 		"mode" : "form", // "form", "fight", "rally"
