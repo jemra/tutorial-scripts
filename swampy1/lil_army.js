@@ -173,16 +173,21 @@ function one_run(spawn_name)
 		}
 	}
 
-	if( Object.keys(Game.creeps).length === 0 )
+	let energy_to_consume = Game.spawns[spawn_name].room.energyCapacityAvailable;
+	let energy_available = Game.spawns[spawn_name].room.energyAvailable;
+	let num_my_creeps = Object.keys(Game.creeps).length;
+	if( num_my_creeps === 0 )
 	{
-		let enrgy = Game.spawns[spawn_name].room.energyAvailable;
-		if(enrgy < 300)
-			enrgy = 300;
-        _make_creep("baby_harvester", spawn_name, enrgy);
+		if(energy_available >= 300)
+			_make_creep("baby_harvester", spawn_name, energy_available);
 		return;
 	}
+	else if( num_my_creeps < 6 )
+	{
+		if(energy_available >= 300)
+			energy_to_consume = energy_available;
+	}
 
-	let energy_to_consume = Game.spawns[spawn_name].room.energyCapacityAvailable;
     let inv = compute_inventory();
     let needed = next_missing(inv, energy_to_consume);
     if(needed)
