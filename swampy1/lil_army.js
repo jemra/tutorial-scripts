@@ -30,12 +30,12 @@ let models =
 		"prefix" : "bbldr_"
     },
     "baby_harvester" : {
-        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,CARRY],
+        "body" : [MOVE,MOVE,WORK,CARRY,CARRY,CARRY],
         "role" : "harvester",
 		"prefix" : "bharv_"
     },
     "baby_upgrader" : {
-        "body" : [MOVE,CARRY,WORK,WORK],
+        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,CARRY],
         "role" : "upgrader",
 		"prefix" : "bupgd_"
     },
