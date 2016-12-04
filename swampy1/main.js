@@ -37,6 +37,9 @@ module.exports.loop = function () {
 		mining_planner.analyze_room(cur_room_name);
 	}
 
+	//War:
+	roleDefense.plan_all_squads();
+
     var tower = cur_room.find( FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}})[0];
     if(tower) {
         var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
