@@ -27,6 +27,8 @@ let roleHarvester = {
 				creep.memory.mode = "retrieve";
 			}
 		}
+		else
+			creep.memory.mode = "harvest";
 
 	    if( creep.memory.mode === "harvest" )
 		{
