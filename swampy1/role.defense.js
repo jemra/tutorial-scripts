@@ -105,17 +105,17 @@ function _plan_squad(squad_name, enemies)
 			squad.mode = "rally";
 		else 
 		{
-			let real_target = Game.getObjectById(squad.target);
+			//let real_target = Game.getObjectById(squad.target);
 			if( !Game.getObjectById(squad.target) )
 			{
 				squad.target = enemies[0].id;
-				real_target = Game.getObjectById(squad.target);
+				//real_target = Game.getObjectById(squad.target);
 			}
-			for( let name in squad.members)
-			{
-				Game.creeps[name].real_target = real_target;//temporary memory???
-				//TODO: stash lambda's in each creep
-			}
+			//for( let name in squad.members)
+			//{
+			//	Game.creeps[name].real_target = real_target;//temporary memory???
+			//	//TODO: stash lambda's in each creep
+			//}
 		}
 
 	}
@@ -156,16 +156,7 @@ function run_roleDefense(creep)
 	if(creep.memory.belongs_to_squad)
 	{
 		let squad = Memory.squads[creep.memory.belongs_to_squad];
-		let target = creep.real_target;
-		if( ! target)
-		{
-			notice('Stash didnt work');
-			target = Game.getObjectById(squad.target);
-		}
-		else
-		{
-			notice('Stash did work');
-		}
+		let target = Game.getObjectById(squad.target);
 		_squad_run_creep(squad, creep, target);
 	}
 	else

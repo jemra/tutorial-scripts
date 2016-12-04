@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "jshint": "^2.9.4"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"lint" : "jshint *.js"
+    "lint": "jshint *.js"
   },
   "author": "",
   "license": "ISC"
