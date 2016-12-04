@@ -25,12 +25,12 @@ let _army_composition =
 let models = 
 {
     "baby_builder" : {
-        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,WORK],
+        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,CARRY],
         "role" : "builder",
 		"prefix" : "bbldr_"
     },
     "baby_harvester" : {
-        "body" : [MOVE,MOVE,WORK,CARRY,CARRY],
+        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,CARRY],
         "role" : "harvester",
 		"prefix" : "bharv_"
     },
