@@ -137,8 +137,9 @@ function next_missing(inventory, energy)
     {
         let spec = _army_composition[x];
         let cur_count = inventory[spec.model];
+        let min_energy_needed = models[ spec.model ].min_energy;
         if( cur_count < spec.count &&
-		  	(null == spec.min_energy || energy >= spec.min_energy))
+		  	(null == min_energy_needed || energy >= min_energy_needed))
         {
             return spec.model;
         }
