@@ -11,7 +11,7 @@ let roleHarvester = {
 
 	init : function( work_allcator )
 	{
-		roleHarvester.alloc_func = work_allcator;
+		roleHarvester.work_api = work_allcator;
 	},
 
 
