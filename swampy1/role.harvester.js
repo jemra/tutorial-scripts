@@ -63,8 +63,14 @@ let roleHarvester = {
             if(build_target)
 			{
 				util.set_doing_state(creep, "build");
-                if(creep.transfer(build_target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+				let res = creep.build(build_target, RESOURCE_ENERGY);
+                if(res == ERR_NOT_IN_RANGE)
+				{
                     creep.moveTo(build_target);
+				}else if (res === OK)
+				{
+				}else
+					notice(`creep ${creep.name} failed to build: ${res}`);
             }
 			else
 			{
