@@ -7,7 +7,7 @@ var reports = require('reports');
 var mining_planner = require('mining_planner');
 
 
-roleHarvester.init(mining_planner.request_mining_target);
+roleHarvester.init(mining_planner);
 
 
 function defendRoom(roomName) {
@@ -68,10 +68,10 @@ module.exports.loop = function () {
             roleHarvester.run(creep);
         }
 		else if(creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
+            roleHarvester.run(creep);
         }
 		else if(creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
+            roleHarvester.run(creep);
         }
 		else if(creep.memory.role == 'defense') {
             roleDefense.run(creep);

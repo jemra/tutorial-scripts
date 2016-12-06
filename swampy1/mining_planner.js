@@ -81,6 +81,25 @@ function refresh_room_mining_plan(room_name)
 		}
 	}
 	//allocated harvs are all that is left now
+	// find energy return targets
+	var room = Game.rooms[room_name];
+	var retrieve_targets = room.find(FIND_STRUCTURES, {
+			filter: (structure) => {
+				return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN
+				|| structure.structureType == STRUCTURE_TOWER ) && structure.energy < structure.energyCapacity;
+			}
+		});
+	if(retrieve_targets.length)
+		mine_map.retrieve_to = retrieve_targets.map( a => a.id);
+	else
+		mine_map.retrieve_to = null;
+
+	// find building targets
+	let build_targets = room.find(FIND_CONSTRUCTION_SITES);
+	if(build_targets.length)
+		mine_map.to_build = build_targets.map( a => a.id);
+	else
+		mine_map.to_build = null;
 }
 
 function _allocate_creep_to_mine(mine_map, creep)
@@ -144,6 +163,33 @@ function reset_mining_plan(room_name)
 			delete Memory.creeps[ nm ].harvest_from_src_id;
 	}
 }
+
+function request_build_target(creep)
+{
+	let room_name = creep.room.name;
+	if(! Memory.mining_map || !Memory.mining_map[room_name])
+	{
+		notice("Creep ${creep.name} has no mining map to be allocated to!");
+		return null;
+	}
+	let mine_map = Memory.mining_map[room_name];
+	if(! mine_map.to_build)
+		return null;
+	return mine_map.to_build[0];
+}
+function request_retrieve_target(creep)
+{
+	let room_name = creep.room.name;
+	if(! Memory.mining_map || !Memory.mining_map[room_name])
+	{
+		notice("Creep ${creep.name} has no mining map to be allocated to!");
+		return null;
+	}
+	let mine_map = Memory.mining_map[room_name];
+	if(! mine_map.retrieve_to)
+		return null;
+	return mine_map.retrieve_to[0];
+}
 //request mining target(room, creep)
 function request_mining_target(creep)
 {
@@ -169,6 +215,8 @@ module.exports =
 	analyze_room : analyze_room,
 	refresh_room_mining_plan : refresh_room_mining_plan,
 	request_mining_target: request_mining_target,
+	request_retrieve_target: request_retrieve_target,
+	request_build_target: request_build_target,
 	reset_mining_plan : reset_mining_plan,
 };
 

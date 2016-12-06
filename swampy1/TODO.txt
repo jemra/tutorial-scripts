@@ -1,5 +1,15 @@
 
-harverster: dont short hit offloads !!!
+
+
+* Redo SCV's
+	Mining loops - separate all scanning from all working
+		choosing targets etc 
+	Max 1 upgrader
+	Builders fall back to harvesting
+	all fallback to upgrading
+		creep.room.controller
+	parking period for x ticks??
+
 
 all gatherers add to mining plan
 builders idle as harvies(?)

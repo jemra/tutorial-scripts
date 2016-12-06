@@ -1,5 +1,9 @@
 "use strict";
 const util = require('util');
+const notice = util.mk_notice("mining_map");
+
+
+const rmap = {"builder":"build", "harvester":"retrieve"};
 
 let roleHarvester = {
 
@@ -9,6 +13,7 @@ let roleHarvester = {
 	{
 		roleHarvester.alloc_func = work_allcator;
 	},
+
 
     /** @param {Creep} creep **/
     run: function(creep)
@@ -24,26 +29,24 @@ let roleHarvester = {
 		{
 			if(creep.carry.energy >= creep.carryCapacity)
 			{
-				creep.memory.mode = "retrieve";
+				creep.memory.mode = "upgrade";
+				if( creep.memory.role && rmap[creep.memory.role] )
+					creep.memory.mode = rmap[creep.memory.role];
 			}
 		}
 		else
+		{
 			creep.memory.mode = "harvest";
+		}
 
 	    if( creep.memory.mode === "harvest" )
 		{
 			if(creep.memory.harvest_from_src_id == null )
 			{
-				if( roleHarvester.alloc_func )
-				{
-					creep.memory.harvest_from_src_id = roleHarvester.alloc_func(creep);
-				}
+				creep.memory.harvest_from_src_id = roleHarvester.work_api.request_mining_target(creep);
 			
 				if(creep.memory.harvest_from_src_id == null )
-				{
-					var sources = creep.room.find(FIND_SOURCES_ACTIVE);
-					creep.memory.harvest_from_src_id = sources[util.getRandomInt(0, sources.length)].id;
-				}
+					return;
 			}
 
 			let source = Game.getObjectById(creep.memory.harvest_from_src_id);
@@ -53,28 +56,40 @@ let roleHarvester = {
                 creep.moveTo(source);
             }
         }
-        else
+        else if( creep.memory.mode === "build" )
 		{
-            var targets = creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_EXTENSION 
-                        || structure.structureType == STRUCTURE_SPAWN
-                        || structure.structureType == STRUCTURE_TOWER ) &&
-                            structure.energy < structure.energyCapacity;
-                    }
-            });
-            if(targets.length > 0) {
-				util.set_doing_state(creep, "retrieve");
-                if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0]);
-                }
+			let build_target = roleHarvester.work_api.request_build_target(creep);
+			build_target = Game.getObjectById(build_target);
+            if(build_target)
+			{
+				util.set_doing_state(creep, "build");
+                if(creep.transfer(build_target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+                    creep.moveTo(build_target);
             }
 			else
 			{
-				util.set_doing_state(creep, "park");
-				targets = creep.room.find(FIND_STRUCTURES, { filter: (structure) => { return (structure.structureType == STRUCTURE_SPAWN ); } });
-				if(targets.length > 0)
-					creep.moveTo(targets[0]);
+				creep.memory.mode = "retrieve";
+			}
+		}
+        else if( creep.memory.mode === "upgrade" )
+		{
+            if(creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+                creep.moveTo(creep.room.controller);
+            }
+		}
+        else if( creep.memory.mode === "retrieve" )
+		{
+			let retrieve_target = roleHarvester.work_api.request_retrieve_target(creep);
+			retrieve_target = Game.getObjectById(retrieve_target);
+            if(retrieve_target)
+			{
+				util.set_doing_state(creep, "retrieve");
+                if(creep.transfer(retrieve_target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+                    creep.moveTo(retrieve_target);
+            }
+			else
+			{
+				creep.memory.mode = "upgrade";
 			}
         }
 	}
