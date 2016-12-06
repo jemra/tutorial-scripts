@@ -15,9 +15,8 @@ let _army_composition =
     {"model":"baby_upgrader", "count" : 1},
     {"model":"baby_harvester", "count" : 6},
     {"model":"baby_builder", "count": 3},
-    {"model":"baby_upgrader", "count" : 2},
     {"model":"baby_upgrader", "count" : 3},
-    {"model":"baby_harvester", "count" : 20},
+    {"model":"baby_harvester", "count" : 20, "min_energy_class":500},
     {"model":"killbot", "count" : 9},
 ];
 
@@ -88,13 +87,6 @@ function _make_creep(model, spawn_name, energy_to_consume)
 	let getpart = at_ndx => modl.body[at_ndx];
 	let part = getpart(at_ndx);
 	let energy_used = 0;
-
-	if( Memory.max_energy != energy_to_consume)
-	{
-		Memory.max_energy = energy_to_consume;
-		console.log(`Energy Class updated to ${Memory.max_energy}`);
-	}
-	
 	if( modl.build != null )
 	{
 		body_spec = modl.build(energy_to_consume);
@@ -135,6 +127,8 @@ function next_missing(inventory, energy)
     for(let x=0; x<_army_composition.length; ++x )
     {
         let spec = _army_composition[x];
+		if( !Memory.max_energy || (spec.min_energy_class && spec.min_energy_class > Memory.max_energy)  )
+			break;
         let cur_count = inventory[spec.model];
         let min_energy_needed = models[ spec.model ].min_energy;
         if( cur_count < spec.count &&
@@ -176,6 +170,13 @@ function one_run(spawn_name)
 	let energy_to_consume = Game.spawns[spawn_name].room.energyCapacityAvailable;
 	let energy_available = Game.spawns[spawn_name].room.energyAvailable;
 	let num_my_creeps = Object.keys(Game.creeps).length;
+
+	if( Memory.max_energy != energy_to_consume)
+	{
+		Memory.max_energy = energy_to_consume;
+		console.log(`Energy Class updated to ${Memory.max_energy}`);
+	}
+
 	if( num_my_creeps === 0 )
 	{
 		if(energy_available >= 300)
