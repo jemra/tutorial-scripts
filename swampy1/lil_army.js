@@ -13,7 +13,7 @@ let _army_composition =
     {"model":"baby_harvester", "count" : 2},
     {"model":"baby_builder", "count": 1},
     {"model":"baby_upgrader", "count" : 2},
-    {"model":"baby_harvester", "count" : 3},
+    {"model":"baby_harvester", "count" : 5},
     {"model":"baby_builder", "count": 3, "min_energy_class":550},
     {"model":"baby_upgrader", "count" : 3},
     {"model":"baby_harvester", "count" : 20, "min_energy_class":550},
@@ -23,17 +23,17 @@ let _army_composition =
 let models = 
 {
     "baby_builder" : {
-        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,CARRY],
+        "body" : [MOVE,WORK,CARRY],
         "role" : "builder",
 		"prefix" : "bbldr_"
     },
     "baby_harvester" : {
-        "body" : [MOVE,MOVE,WORK,CARRY,CARRY,CARRY],
+        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,CARRY],
         "role" : "harvester",
 		"prefix" : "bharv_"
     },
     "baby_upgrader" : {
-        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,CARRY],
+        "body" : [MOVE,WORK,CARRY],
         "role" : "upgrader",
 		"prefix" : "bupgd_"
     },
