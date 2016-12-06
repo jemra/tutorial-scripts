@@ -18,7 +18,7 @@ let roleHarvester = {
     /** @param {Creep} creep **/
     run: function(creep)
 	{
-		if( creep.memory.mode === "retrieve")
+		if( creep.memory.mode === "retrieve" || creep.memory.mode === "build" || creep.memory.mode === "upgrade" )
 		{
 			if(creep.carry.energy < 1 )
 			{
