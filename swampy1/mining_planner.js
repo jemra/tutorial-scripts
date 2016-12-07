@@ -20,6 +20,29 @@ function analyze_room(room_name)
 		// measure distance to spawn, capacity
 		let source = sources[ndx];
 		source.dis_to_spawn = util.qPosDist(spawn.pos, source.pos);
+
+		source.is_not_wall_count = 0;
+		let vectors = [[-1,-1],[-1,0],[0,-1],[1,1],[1,0],[0,1],[1,-1],[-1,1]];
+		for(let vec_ndx in vectors)
+		{
+			let vector = vectors[vec_ndx];
+			let x = source.pos.x + vector[0];
+			let y = source.pos.y + vector[1];
+			let terrain = room.lookAtArea(3,35,3,35,true);
+			let is_wall = false;
+			for( let ter_ndx in terrain)
+			{
+				let terrain_entry = terrain[ter_ndx];
+				if(terrain_entry && terrain_entry.terrain === "wall")
+				{
+					is_wall = true;
+					break;
+				}
+			}
+			if( is_wall )
+				source.is_not_wall_count += 1;
+
+		}
 	}
 	//sort nearest to furthest
 	sources = sources.sort((a,b) => a.dis_to_spawn - b.dis_to_spawn);
@@ -30,6 +53,11 @@ function analyze_room(room_name)
 	{
 		let source = sources[ndx];
 		source.required_harvesters = 3;
+		if(source.is_not_wall_count < 3)
+		{
+			source.required_harvesters = source.is_not_wall_count + 1;
+		}
+		notice(`Source ${source.id} source.is_not_wall_count=${source.required_harvesters} not_wall_count= ${source.is_not_wall_count}`);
 	}
 	let src_map = {};
 	sources.map( src => src_map[src.id] = src );
