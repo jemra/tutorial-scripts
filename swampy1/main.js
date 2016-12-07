@@ -58,6 +58,7 @@ module.exports.loop = function () {
 	}
 
 
+	mining_planner.refresh_room_mining_plan(cur_room_name);
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
 		if(creep.spawning)
@@ -78,7 +79,6 @@ module.exports.loop = function () {
 
 	if((Game.time % 25) === 0)
 	{
-		mining_planner.refresh_room_mining_plan(cur_room_name);
 		reports.report_creep_makes();
 	}
 
