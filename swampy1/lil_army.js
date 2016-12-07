@@ -12,10 +12,8 @@ let _army_composition =
 [
     {"model":"baby_harvester", "count" : 2},
     {"model":"baby_builder", "count": 1},
-    {"model":"baby_upgrader", "count" : 2},
+    {"model":"baby_upgrader", "count" : 1},
     {"model":"baby_harvester", "count" : 5},
-    {"model":"baby_builder", "count": 3, "min_energy_class":550},
-    {"model":"baby_upgrader", "count" : 3},
     {"model":"baby_harvester", "count" : 20, "min_energy_class":550},
     {"model":"killbot", "count" : 9},
 ];

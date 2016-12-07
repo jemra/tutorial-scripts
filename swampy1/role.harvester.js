@@ -74,7 +74,11 @@ let roleHarvester = {
             }
 			else
 			{
-				creep.memory.mode = "retrieve";
+				//No building to work on, fall back to next work
+				if( creep.memory.role === 'harvester' )
+					creep.memory.mode = "upgrade";
+				else
+					creep.memory.mode = "retrieve";
 			}
 		}
         else if( creep.memory.mode === "upgrade" )
@@ -95,7 +99,11 @@ let roleHarvester = {
             }
 			else
 			{
-				creep.memory.mode = "upgrade";
+				//No place to drop energy, fall back to next work
+				if( creep.memory.role === 'harvester' )
+					creep.memory.mode = "build";
+				else
+					creep.memory.mode = "upgrade";
 			}
         }
 	}

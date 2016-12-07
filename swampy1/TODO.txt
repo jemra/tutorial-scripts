@@ -1,18 +1,8 @@
 
 
 
-* Redo SCV's
-	Mining loops - separate all scanning from all working
-		choosing targets etc 
-	Max 1 upgrader
-	Builders fall back to harvesting
-	all fallback to upgrading
-		creep.room.controller
-	parking period for x ticks??
+dead end traffic jam:
+	limit # of harvies assigned by accessible spaces?
+	1-2-3
+	look at all squares around sources and limit them accordingly
 
-
-all gatherers add to mining plan
-builders idle as harvies(?)
-	more efficient building plan? terrible loop as of now
-
-killbot x 1 ?
