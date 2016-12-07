@@ -39,7 +39,7 @@ function analyze_room(room_name)
 					break;
 				}
 			}
-notice(`X:${x} Y:${y} ${is_wall?"IS WALL":"IS NOT WALL"}`);
+			//notice(`X:${x} Y:${y} ${is_wall?"IS WALL":"IS NOT WALL"}`);
 			if( ! is_wall )
 				source.is_not_wall_count += 1;
 
@@ -58,7 +58,7 @@ notice(`X:${x} Y:${y} ${is_wall?"IS WALL":"IS NOT WALL"}`);
 		{
 			source.required_harvesters = source.is_not_wall_count + 1;
 		}
-		notice(`Source ${source.id} source.is_not_wall_count=${source.required_harvesters} not_wall_count= ${source.is_not_wall_count}`);
+		notice(`Source ${source.id} required_harvesters=${source.required_harvesters} not_wall_count= ${source.is_not_wall_count}`);
 	}
 	let src_map = {};
 	sources.map( src => src_map[src.id] = src );
