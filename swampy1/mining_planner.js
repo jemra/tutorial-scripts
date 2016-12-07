@@ -28,7 +28,7 @@ function analyze_room(room_name)
 			let vector = vectors[vec_ndx];
 			let x = source.pos.x + vector[0];
 			let y = source.pos.y + vector[1];
-			let terrain = room.lookAtArea(3,35,3,35,true);
+			let terrain = room.lookAtArea(y,x,y,x,true);
 			let is_wall = false;
 			for( let ter_ndx in terrain)
 			{
