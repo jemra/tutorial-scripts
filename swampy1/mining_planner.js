@@ -46,7 +46,7 @@ function analyze_room(room_name)
 	}
 	//sort nearest to furthest
 	sources = sources.sort((a,b) => a.dis_to_spawn - b.dis_to_spawn);
-	sources = sources.map((src) => ({id:src.id, dist:src.dis_to_spawn, harvs:{}}) );
+	sources = sources.map((src) => ({id:src.id, dist:src.dis_to_spawn, harvs:{}, "is_not_wall_count":src.is_not_wall_count }) );
 	sources.forEach( (source) => notice(`Source ${source.id} Distance to spawn = ${source.dist}`));
 	// plan how many miners per node (more per distance? Path? Road? Etc. start with roundly robins)
 	for( let ndx in sources)
