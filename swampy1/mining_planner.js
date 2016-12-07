@@ -39,6 +39,7 @@ function analyze_room(room_name)
 					break;
 				}
 			}
+notice(`X:${x} Y:${y} ${is_wall?"IS WALL":"IS NOT WALL"}`);
 			if( is_wall )
 				source.is_not_wall_count += 1;
 
