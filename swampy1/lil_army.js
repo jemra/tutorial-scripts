@@ -169,7 +169,7 @@ function one_run(spawn_name)
 	let energy_available = Game.spawns[spawn_name].room.energyAvailable;
 	let num_my_creeps = Object.keys(Game.creeps).length;
 
-	if( Memory.max_energy != energy_to_consume)
+	if( Memory.max_energy !== energy_to_consume)
 	{
 		Memory.max_energy = energy_to_consume;
 		console.log(`Energy Class updated to ${Memory.max_energy}`);
