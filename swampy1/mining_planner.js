@@ -63,6 +63,7 @@ function analyze_room(room_name)
 	let src_map = {};
 	sources.map( src => src_map[src.id] = src );
 	Memory.mining_map[room_name].sources = src_map;
+	Memory.mining_map[room_name].spawnid = spawn.id;
 	return;
 }
 
@@ -216,7 +217,17 @@ function reset_mining_plan(room_name)
 			delete Memory.creeps[ nm ].harvest_from_src_id;
 	}
 }
-
+function get_spawn_id(creep)
+{
+	let room_name = creep.room.name;
+	if(! Memory.mining_map || !Memory.mining_map[room_name])
+	{
+		notice(`Creep ${creep.name} has no mining map to be allocated to!`);
+		return null;
+	}
+	let mine_map = Memory.mining_map[room_name];
+	return mine_map.spawnid;
+}
 function request_build_target(creep)
 {
 	let room_name = creep.room.name;
@@ -271,5 +282,6 @@ module.exports =
 	request_retrieve_target: request_retrieve_target,
 	request_build_target: request_build_target,
 	reset_mining_plan : reset_mining_plan,
+	get_spawn_id : get_spawn_id,
 };
 

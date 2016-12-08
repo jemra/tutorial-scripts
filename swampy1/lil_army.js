@@ -112,7 +112,7 @@ function _make_creep(model, spawn_name, energy_to_consume)
     let newname = modl.prefix + util.getRandomName();
     notice("Making a \"" + model + "\" " + newname + ` (${energy_used})`);
 	//notice("  spec = " + body_spec.join(","));
-    let ret = Game.spawns[spawn_name].createCreep(body_spec, newname, {role:modl.role, model:model});
+    let ret = Game.spawns[spawn_name].createCreep(body_spec, newname, {role:modl.role, model:model, cost:energy_used});
     if(ret < 0)
     {
         notice("Failed to make a \"" + model + "\" " + newname + " "+ ret + ` (${energy_used})`);

@@ -3,7 +3,7 @@ const util = require('util');
 const notice = util.mk_notice("mining_map");
 
 
-const rmap = {"builder":"build", "harvester":"retrieve"};
+const rmap = {"builder":"build", "harvester":"retrieve", "upgrader":"upgrade"};
 
 let roleHarvester = {
 
@@ -81,6 +81,21 @@ let roleHarvester = {
 					creep.memory.mode = "retrieve";
 			}
 		}
+		else if ( creep.memory.mode === "renew" )
+		{
+			let spawnid =  roleHarvester.work_api.get_spawn_id();
+			let spawn = Game.getObjectById(spawnid);
+			let retv = spawn.renewCreep(creep);
+			if(retv === ERR_NOT_ENOUGH_ENERGY || retv === ERR_FULL)
+			{
+				//finished repairs
+				creep.memory.mode = rmap[creep.memory.role];
+			}
+			else if( retv == ERR_NOT_IN_RANGE )
+			{
+                creep.moveTo(spawn);
+			}
+		}
         else if( creep.memory.mode === "upgrade" )
 		{
             if(creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
@@ -99,8 +114,12 @@ let roleHarvester = {
             }
 			else
 			{
+				if(creep.ticksToLive < 128 && (Memory.max_energy - creep.memory.energy_used) <= 50 )
+				{
+					creep.memory.mode = "renew";
+				}
 				//No place to drop energy, fall back to next work
-				if( creep.memory.role === 'harvester' )
+				else if( creep.memory.role === 'harvester' )
 					creep.memory.mode = "build";
 				else
 					creep.memory.mode = "upgrade";

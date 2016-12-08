@@ -1,4 +1,5 @@
 
+bot refresh
 
 Improve army composition:
 	only make as many as reasonable? tweak hack
@@ -9,14 +10,4 @@ Improve army composition:
 
 	Fuel tower earlier in cycle: 
 		first? yes
-
-	optimize mining:
-		for harvesting actions might not have the best mix
-		extra low work factor might be a disadvantage
-			2 harvest per tick might outweigh the travel costs?
-		Travel RTT = distance * 2
-		Work delay = Capacity / 2
-			@550 w/ carry = 250
-				125 ticks to fill tank
-				dist = 25 = 50 ticks to RTT
 
