@@ -152,10 +152,17 @@ function _allocate_creep_to_mine(mine_map, creep)
 	//search through sources for which one has not enough harvies
 	//let most_needed = null;
 	let go_to_source = null;
+	let need_most = null;
+	let need_most_source = null;
 	for(let source_id in mine_map.sources)
 	{
 		let source = mine_map.sources[source_id];
 		let num_needed = source.required_harvesters - Object.keys(source.harvs).length;
+		if( !need_most || num_needed > need_most)
+		{
+			need_most = num_needed;
+			need_most_source = source;
+		}
 		if( num_needed > 0)
 		{
 			go_to_source = source;
@@ -163,8 +170,10 @@ function _allocate_creep_to_mine(mine_map, creep)
 		}
 	}
 	if(!go_to_source)
+		go_to_source = need_most_source;
+	if(!go_to_source)
 	{
-		notice("Creep ${creep.name} has no source to be allocated to!");
+		notice(`Creep ${creep.name} has no source to be allocated to!`);
 		return null;
 	}
 	else
@@ -213,7 +222,7 @@ function request_build_target(creep)
 	let room_name = creep.room.name;
 	if(! Memory.mining_map || !Memory.mining_map[room_name])
 	{
-		notice("Creep ${creep.name} has no mining map to be allocated to!");
+		notice(`Creep ${creep.name} has no mining map to be allocated to!`);
 		return null;
 	}
 	let mine_map = Memory.mining_map[room_name];
@@ -226,7 +235,7 @@ function request_retrieve_target(creep)
 	let room_name = creep.room.name;
 	if(! Memory.mining_map || !Memory.mining_map[room_name])
 	{
-		notice("Creep ${creep.name} has no mining map to be allocated to!");
+		notice(`Creep ${creep.name} has no mining map to be allocated to!`);
 		return null;
 	}
 	let mine_map = Memory.mining_map[room_name];
@@ -240,7 +249,7 @@ function request_mining_target(creep)
 	let room_name = creep.room.name;
 	if(! Memory.mining_map || !Memory.mining_map[room_name])
 	{
-		notice("Creep ${creep.name} has no mining map to be allocated to!");
+		notice(`Creep ${creep.name} has no mining map to be allocated to!`);
 		return null;
 	}
 	let mine_map = Memory.mining_map[room_name];
