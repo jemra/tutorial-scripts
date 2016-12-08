@@ -26,7 +26,7 @@ let models =
 		"prefix" : "bbldr_"
     },
     "baby_harvester" : {
-        "body" : [MOVE,WORK,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,CARRY,CARRY],
+        "body" : [MOVE,WORK,CARRY,CARRY,CARRY,MOVE,WORK,CARRY,MOVE,CARRY,CARRY,CARRY],
         "role" : "harvester",
 		"prefix" : "bharv_"
     },

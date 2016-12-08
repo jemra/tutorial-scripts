@@ -1,8 +1,22 @@
 
 
+Improve army composition:
+	only make as many as reasonable? tweak hack
+	power on way to room controller level 3
+		make more upgraders when room level is less than 3
+	
+	Dont make attack bots until have tower?
 
-dead end traffic jam:
-	limit # of harvies assigned by accessible spaces?
-	1-2-3
-	look at all squares around sources and limit them accordingly
+	Fuel tower earlier in cycle: 
+		first? yes
+
+	optimize mining:
+		for harvesting actions might not have the best mix
+		extra low work factor might be a disadvantage
+			2 harvest per tick might outweigh the travel costs?
+		Travel RTT = distance * 2
+		Work delay = Capacity / 2
+			@550 w/ carry = 250
+				125 ticks to fill tank
+				dist = 25 = 50 ticks to RTT
 
