@@ -114,7 +114,7 @@ let roleHarvester = {
             }
 			else
 			{
-				if(creep.ticksToLive < 128 && (Memory.max_energy - creep.memory.energy_used) <= 50 )
+				if(creep.ticksToLive < 312 && (Memory.max_energy - creep.memory.energy_used) <= 50 )
 				{
 					creep.memory.mode = "renew";
 				}
