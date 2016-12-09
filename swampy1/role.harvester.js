@@ -102,7 +102,13 @@ notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memo
 			{
 notice(`Creep ${creep.name} has RECHARGED TO ${creep.ticksToLive} `);
 			}
-			else if(retv === ERR_NOT_ENOUGH_ENERGY || retv === ERR_FULL)
+			else if(retv === ERR_NOT_ENOUGH_ENERGY)
+			{
+				//give energy to spawn if have any
+                creep.transfer(spawn, RESOURCE_ENERGY);
+				//otherwise idle
+			}
+			else if( retv === ERR_FULL)
 			{
 				//finished repairs
 				creep.memory.mode = rmap[creep.memory.role];
