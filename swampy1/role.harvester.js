@@ -45,7 +45,7 @@ notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memo
 					creep.memory.mode = rmap[creep.memory.role];
 			}
 		}
-		else
+		else if(!creep.memory.mode)
 		{
 			creep.memory.mode = "harvest";
 		}
