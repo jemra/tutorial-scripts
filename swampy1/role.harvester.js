@@ -18,12 +18,16 @@ let roleHarvester = {
     /** @param {Creep} creep **/
     run: function(creep)
 	{
-		if( creep.memory.mode === "retrieve" || creep.memory.mode === "build" || creep.memory.mode === "upgrade" )
+		if(creep.ticksToLive < 100 && (Memory.max_energy - creep.memory.cost) <= 50 )
+		{
+			creep.memory.mode = "renew";
+		}
+		else if( creep.memory.mode === "retrieve" || creep.memory.mode === "build" || creep.memory.mode === "upgrade" )
 		{
 			if(creep.carry.energy < 1 )
 			{
 if(creep.ticksToLive < 312)
-	notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
+notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
 				if(creep.ticksToLive < 312 && (Memory.max_energy - creep.memory.cost) <= 50 )
 				{
 					creep.memory.mode = "renew";
@@ -90,10 +94,15 @@ if(creep.ticksToLive < 312)
 		}
 		else if ( creep.memory.mode === "renew" )
 		{
+			util.set_doing_state(creep, "renew");
 			let spawnid =  roleHarvester.work_api.get_spawn_id();
 			let spawn = Game.getObjectById(spawnid);
 			let retv = spawn.renewCreep(creep);
-			if(retv === ERR_NOT_ENOUGH_ENERGY || retv === ERR_FULL)
+			if(retv == OK)
+			{
+notice(`Creep ${creep.name} has RECHARGED TO ${creep.ticksToLive} `);
+			}
+			else if(retv === ERR_NOT_ENOUGH_ENERGY || retv === ERR_FULL)
 			{
 				//finished repairs
 				creep.memory.mode = rmap[creep.memory.role];
@@ -122,7 +131,7 @@ if(creep.ticksToLive < 312)
 			else
 			{
 if(creep.ticksToLive < 312)
-	notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
+notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
 				if(creep.ticksToLive < 312 && (Memory.max_energy - creep.memory.cost) <= 50 )
 				{
 					creep.memory.mode = "renew";
