@@ -26,8 +26,7 @@ let roleHarvester = {
 		{
 			if(creep.carry.energy < 1 )
 			{
-if(creep.ticksToLive < 312)
-notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
+				//notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
 				if(creep.ticksToLive < 312 && (Memory.max_energy - creep.memory.cost) <= 50 )
 				{
 					creep.memory.mode = "renew";
@@ -100,14 +99,14 @@ notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memo
 			let retv = spawn.renewCreep(creep);
 			if(retv == OK)
 			{
-notice(`Creep ${creep.name} has RECHARGED TO ${creep.ticksToLive} `);
+				//notice(`Creep ${creep.name} has RECHARGED TO ${creep.ticksToLive} `);
 			}
 			else if(retv === ERR_NOT_ENOUGH_ENERGY)
 			{
 				//give energy to spawn if have any
                 creep.transfer(spawn, RESOURCE_ENERGY);
 				//otherwise idle
-notice(`Creep ${creep.name} needs to wait to get recharged`);
+				//notice(`Creep ${creep.name} needs to wait to get recharged`);
 			}
 			else if( retv === ERR_FULL)
 			{
@@ -138,8 +137,7 @@ notice(`Creep ${creep.name} has RECHARGED TO FULL @ ${creep.ticksToLive} `);
             }
 			else
 			{
-if(creep.ticksToLive < 312)
-notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
+				//notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
 				if(creep.ticksToLive < 312 && (Memory.max_energy - creep.memory.cost) <= 50 )
 				{
 					creep.memory.mode = "renew";
