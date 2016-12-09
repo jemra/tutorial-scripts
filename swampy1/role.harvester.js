@@ -95,7 +95,7 @@ notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memo
 		else if ( creep.memory.mode === "renew" )
 		{
 			util.set_doing_state(creep, "renew");
-			let spawnid =  roleHarvester.work_api.get_spawn_id();
+			let spawnid =  roleHarvester.work_api.get_spawn_id(creep);
 			let spawn = Game.getObjectById(spawnid);
 			let retv = spawn.renewCreep(creep);
 			if(retv == OK)
