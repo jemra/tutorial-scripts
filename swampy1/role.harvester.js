@@ -107,10 +107,12 @@ notice(`Creep ${creep.name} has RECHARGED TO ${creep.ticksToLive} `);
 				//give energy to spawn if have any
                 creep.transfer(spawn, RESOURCE_ENERGY);
 				//otherwise idle
+notice(`Creep ${creep.name} needs to wait to get recharged`);
 			}
 			else if( retv === ERR_FULL)
 			{
 				//finished repairs
+notice(`Creep ${creep.name} has RECHARGED TO FULL @ ${creep.ticksToLive} `);
 				creep.memory.mode = rmap[creep.memory.role];
 			}
 			else if( retv == ERR_NOT_IN_RANGE )
