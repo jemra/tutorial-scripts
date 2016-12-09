@@ -22,7 +22,12 @@ let roleHarvester = {
 		{
 			if(creep.carry.energy < 1 )
 			{
-				creep.memory.mode = "harvest";
+				if(creep.ticksToLive < 312 && (Memory.max_energy - creep.memory.energy_used) <= 50 )
+				{
+					creep.memory.mode = "renew";
+				}
+				else
+					creep.memory.mode = "harvest";
 			}
 		}
 		else if( creep.memory.mode === "harvest" )
