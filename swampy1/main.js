@@ -51,6 +51,13 @@ module.exports.loop = function () {
         if(closestHostile) {
             tower.attack(closestHostile);
         }
+		else
+		{
+			var injured_creeps = room.find( FIND_MY_CREEPS, {filter: (creep)=> creep.hits<creep.hitsMax});
+
+			if(injured_creeps && injured_creeps.length > 0)
+				tower.heal(injured_creeps[0]);
+		}
     }
 	else
 	{

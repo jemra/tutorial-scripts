@@ -1,13 +1,4 @@
 
-bot refresh
 
-Improve army composition:
-	only make as many as reasonable? tweak hack
-	power on way to room controller level 3
-		make more upgraders when room level is less than 3
-	
-	Dont make attack bots until have tower?
-
-	Fuel tower earlier in cycle: 
-		first? yes
+USE TOWER AS A HEALER
 
