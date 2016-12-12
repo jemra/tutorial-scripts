@@ -16,6 +16,7 @@
 		"FIND_MY_STRUCTURES" : false,
 		"FIND_MY_CREEPS" : false,
 		"FIND_HOSTILE_CREEPS" : false,
+		"FIND_HOSTILE_STRUCTURES" : false,
 
 		"RESOURCE_ENERGY" : false,
 		"STRUCTURE_TOWER" : false,
