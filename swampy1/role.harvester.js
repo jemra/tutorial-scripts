@@ -111,7 +111,7 @@ let roleHarvester = {
 			else if( retv === ERR_FULL)
 			{
 				//finished repairs
-notice(`Creep ${creep.name} has RECHARGED TO FULL @ ${creep.ticksToLive} `);
+				notice(`Creep ${creep.name} has RECHARGED TO FULL @ ${creep.ticksToLive} `);
 				creep.memory.mode = rmap[creep.memory.role];
 			}
 			else if( retv == ERR_NOT_IN_RANGE )

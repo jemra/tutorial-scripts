@@ -142,7 +142,21 @@ function refresh_room_mining_plan(room_name)
 	// find building targets
 	let build_targets = room.find(FIND_CONSTRUCTION_SITES);
 	if(build_targets.length)
+	{
 		mine_map.to_build = build_targets.map( a => a.id);
+
+		mine_map.to_build = mine_map.to_build.sort( function(a,b)
+		{
+			if( a.structureType != b.structureType )
+			{
+				if( a.structureType === STRUCTURE_TOWER )
+					return -1;
+				else if( b.structureType === STRUCTURE_TOWER )
+					return 1;
+			}
+			return a.id - b.id;
+		});
+	}
 	else
 		mine_map.to_build = null;
 }
