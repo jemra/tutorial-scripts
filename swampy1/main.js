@@ -53,10 +53,10 @@ module.exports.loop = function () {
         }
 		else
 		{
-			var injured_creeps = room.find( FIND_MY_CREEPS, {filter: (creep)=> creep.hits<creep.hitsMax});
+			var injured_creep = tower.pos.findClosestByRange( FIND_MY_CREEPS, {filter: (crp) => crp.hits<crp.hitsMax});
 
-			if(injured_creeps && injured_creeps.length > 0)
-				tower.heal(injured_creeps[0]);
+			if(injured_creep)
+				tower.heal(injured_creep);
 		}
     }
 	else
