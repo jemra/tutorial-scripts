@@ -164,7 +164,10 @@ function refresh_room_mining_plan(room_name)
 			filter: (structure) => structure.hits < structure.hitsMax
 		});
 
-	mine_map.to_repair = dmgd_structure;
+	if(dmgd_structure)
+		mine_map.to_repair = dmgd_structure.map( a => a.id);
+	else
+		mine_map.to_repair = null;
 
 }
 
