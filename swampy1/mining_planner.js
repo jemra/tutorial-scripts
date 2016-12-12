@@ -143,9 +143,7 @@ function refresh_room_mining_plan(room_name)
 	let build_targets = room.find(FIND_CONSTRUCTION_SITES);
 	if(build_targets.length)
 	{
-		mine_map.to_build = build_targets.map( a => a.id);
-
-		mine_map.to_build = mine_map.to_build.sort( function(a,b)
+		build_targets = build_targets.sort( function(a,b)
 		{
 			if( a.structureType != b.structureType )
 			{
@@ -156,6 +154,8 @@ function refresh_room_mining_plan(room_name)
 			}
 			return a.id - b.id;
 		});
+
+		mine_map.to_build = build_targets.map( a => a.id);
 	}
 	else
 		mine_map.to_build = null;
