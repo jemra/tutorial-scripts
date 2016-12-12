@@ -1,7 +1,10 @@
 
 
 
-	rally point near last enemies
-	structure destruction
+	rally point near last enemies ?? guarding mode?
+	structure destruction - does it mnot work??
 	faster levelling of controller
+
+
+	builders should repair damaged buildings
 

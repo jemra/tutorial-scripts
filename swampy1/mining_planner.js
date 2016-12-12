@@ -159,6 +159,13 @@ function refresh_room_mining_plan(room_name)
 	}
 	else
 		mine_map.to_build = null;
+
+	var dmgd_structure = room.find(FIND_STRUCTURES, {
+			filter: (structure) => structure.hits < structure.hitsMax
+		});
+
+	mine_map.to_repair = dmgd_structure;
+
 }
 
 function _allocate_creep_to_mine(mine_map, creep)
@@ -255,6 +262,19 @@ function request_build_target(creep)
 		return null;
 	return mine_map.to_build[0];
 }
+function request_repair_target(creep)
+{
+	let room_name = creep.room.name;
+	if(! Memory.mining_map || !Memory.mining_map[room_name])
+	{
+		notice(`Creep ${creep.name} has no mining map to be allocated to!`);
+		return null;
+	}
+	let mine_map = Memory.mining_map[room_name];
+	if(! mine_map.to_repair)
+		return null;
+	return mine_map.to_repair[0];
+}
 function request_retrieve_target(creep)
 {
 	let room_name = creep.room.name;
@@ -295,6 +315,7 @@ module.exports =
 	request_mining_target: request_mining_target,
 	request_retrieve_target: request_retrieve_target,
 	request_build_target: request_build_target,
+	request_repair_target: request_repair_target,
 	reset_mining_plan : reset_mining_plan,
 	get_spawn_id : get_spawn_id,
 };

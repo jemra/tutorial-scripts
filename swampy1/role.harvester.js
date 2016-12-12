@@ -22,18 +22,15 @@ let roleHarvester = {
 		{
 			creep.memory.mode = "renew";
 		}
-		else if( creep.memory.mode === "retrieve" || creep.memory.mode === "build" || creep.memory.mode === "upgrade" )
+		else if(creep.carry.energy < 1 )
 		{
-			if(creep.carry.energy < 1 )
+			//notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
+			if(creep.ticksToLive < 312 && (Memory.max_energy - creep.memory.cost) <= 50 )
 			{
-				//notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
-				if(creep.ticksToLive < 312 && (Memory.max_energy - creep.memory.cost) <= 50 )
-				{
-					creep.memory.mode = "renew";
-				}
-				else
-					creep.memory.mode = "harvest";
+				creep.memory.mode = "renew";
 			}
+			else
+				creep.memory.mode = "harvest";
 		}
 		else if( creep.memory.mode === "harvest" )
 		{
@@ -66,6 +63,32 @@ let roleHarvester = {
                 creep.moveTo(source);
             }
         }
+        else if( creep.memory.mode === "repair" )
+		{
+			let repair_target = roleHarvester.work_api.request_repair_target(creep);
+			repair_target = Game.getObjectById(repair_target);
+			if(repair_target)
+			{
+				util.set_doing_state(creep, "repair");
+				let res = creep.repair(repair_target, RESOURCE_ENERGY);
+				if(res == ERR_NOT_IN_RANGE)
+				{
+					creep.moveTo(repair_target);
+				}else if (res === OK)
+				{
+				}else
+					notice(`creep ${creep.name} failed to repair: ${res}`);
+
+			}
+			else
+			{
+				//No building to work on, fall back to next work
+				if( creep.memory.role === 'harvester' )
+					creep.memory.mode = "upgrade";
+				else
+					creep.memory.mode = "retrieve";
+			}
+		}
         else if( creep.memory.mode === "build" )
 		{
 			let build_target = roleHarvester.work_api.request_build_target(creep);
@@ -84,11 +107,19 @@ let roleHarvester = {
             }
 			else
 			{
-				//No building to work on, fall back to next work
-				if( creep.memory.role === 'harvester' )
-					creep.memory.mode = "upgrade";
+				let repair_target = roleHarvester.work_api.request_repair_target(creep);
+				if(creep.memory.role === "builder" && repair_target)
+				{
+					creep.memory.mode = "repair";
+				}
 				else
-					creep.memory.mode = "retrieve";
+				{
+					//No building to work on, fall back to next work
+					if( creep.memory.role === 'harvester' )
+						creep.memory.mode = "upgrade";
+					else
+						creep.memory.mode = "retrieve";
+				}
 			}
 		}
 		else if ( creep.memory.mode === "renew" )
