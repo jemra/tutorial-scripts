@@ -1,4 +1,7 @@
 
 
-USE TOWER AS A HEALER
+
+	rally point near last enemies
+	structure destruction
+	faster levelling of controller
 
