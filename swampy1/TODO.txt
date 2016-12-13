@@ -3,8 +3,8 @@
 
 	rally point near last enemies ?? guarding mode?
 	structure destruction - does it mnot work??
+		no effect of attacking a structyure with ranged weapons... sad
 	faster levelling of controller
 
 
-	builders should repair damaged buildings
 

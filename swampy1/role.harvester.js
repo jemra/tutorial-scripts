@@ -22,7 +22,7 @@ let roleHarvester = {
 		{
 			creep.memory.mode = "renew";
 		}
-		else if(creep.carry.energy < 1 )
+		else if(creep.carry.energy < 1 && creep.memory.mode != "renew" && creep.memory.mode != "harvest")
 		{
 			//notice(`Creep ${creep.name} has ${creep.ticksToLive} ticks to live and is ${Memory.max_energy - creep.memory.cost} costpenalty`);
 			if(creep.ticksToLive < 312 && (Memory.max_energy - creep.memory.cost) <= 50 )
