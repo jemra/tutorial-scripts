@@ -4,6 +4,7 @@ const util = require('util');
 const notice = util.mk_notice("mining_planner");
 
 // Memory.mining_map
+const MAX_MINERS_PER_NODE = 5;
 
 //analyze a given room
 function analyze_room(room_name)
@@ -61,8 +62,8 @@ function analyze_room(room_name)
 	for( let ndx in sources)
 	{
 		let source = sources[ndx];
-		source.required_harvesters = 3;
-		if(source.is_not_wall_count < 3)
+		source.required_harvesters = MAX_MINERS_PER_NODE;
+		if(source.is_not_wall_count < MAX_MINERS_PER_NODE)
 		{
 			source.required_harvesters = source.is_not_wall_count + 1;
 		}
