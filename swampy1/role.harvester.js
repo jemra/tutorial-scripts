@@ -48,13 +48,10 @@ let roleHarvester = {
 
 	    if( creep.memory.mode === "harvest" )
 		{
+			creep.memory.harvest_from_src_id = roleHarvester.work_api.request_mining_target(creep);
+		
 			if(creep.memory.harvest_from_src_id == null )
-			{
-				creep.memory.harvest_from_src_id = roleHarvester.work_api.request_mining_target(creep);
-			
-				if(creep.memory.harvest_from_src_id == null )
-					return;
-			}
+				return;
 
 			let source = Game.getObjectById(creep.memory.harvest_from_src_id);
 

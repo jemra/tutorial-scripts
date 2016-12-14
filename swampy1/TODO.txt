@@ -1,4 +1,6 @@
 
+	linera tick naming util?
+
 	source keeper lair cannot be dealt with
 		utterly immune
 	
@@ -10,3 +12,8 @@
 		exclude them so long as any enemy creep is on the field
 
 		will still suffer losses when they spawn...
+
+
+	specialized mining algorithm major refactor
+		digger and hauler pattern
+
