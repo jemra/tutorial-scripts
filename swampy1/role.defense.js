@@ -18,6 +18,18 @@ function _form_new_squad(room_name)
 		"rally_point" : {"x" : 20, "y" : 27},
 	};
 	Memory.squads[new_squad.name] = new_squad;
+	let room = Game.rooms[room_name];
+	if(room)
+	{
+		let hostile_buildings = room.find(FIND_HOSTILE_STRUCTURES);
+		if(hostile_buildings && hostile_buildings.length > 0)
+		{
+			let topos = hostile_buildings[0].pos;
+			new_squad.rally_point.x = topos.x;
+			new_squad.rally_point.y = topos.y;
+		}
+	}
+
 	notice(`Form new squad ${new_squad.name}`);
 	return new_squad;
 }
