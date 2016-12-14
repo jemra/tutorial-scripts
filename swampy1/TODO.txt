@@ -1,10 +1,12 @@
 
+	source keeper lair cannot be dealt with
+		utterly immune
+	
+		options: scaffolding?
+				 wall in + scaffolding
 
+	mining plan: exclude source keepers 
+		note which sources have a enemy structure within 5 squares
+		exclude them so long as any enemy creep is on the field
 
-	rally point near last enemies ?? guarding mode?
-	structure destruction - does it mnot work??
-		no effect of attacking a structyure with ranged weapons... sad
-	faster levelling of controller
-
-
-
+		will still suffer losses when they spawn...

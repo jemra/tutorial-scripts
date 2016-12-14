@@ -140,7 +140,7 @@ function plan_all_squads()
 		if(!enemies)
 		{
 			let hostile_creeps = Game.rooms[squad.room_name].find(FIND_HOSTILE_CREEPS);
-			let hostile_structures = Game.rooms[squad.room_name].find(FIND_HOSTILE_STRUCTURES);
+			let hostile_structures = [];//Game.rooms[squad.room_name].find(FIND_HOSTILE_STRUCTURES);
 			enemies = enemies_map[squad.room_name] = [].concat(hostile_creeps,hostile_structures);
 		}
 		_plan_squad(name, enemies);

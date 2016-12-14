@@ -14,6 +14,7 @@ function analyze_room(room_name)
 	let room = Game.rooms[room_name];
     var spawn = room.find( FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_SPAWN}})[0];
 	let sources = room.find(FIND_SOURCES);
+	let enemy_structures = room.find(FIND_HOSTILE_STRUCTURES);
 	// find all minable nodes, order by distance 
 	for( let ndx in sources)
 	{
@@ -44,10 +45,17 @@ function analyze_room(room_name)
 				source.is_not_wall_count += 1;
 
 		}
+
+		if( enemy_structures !== null )
+		{
+			let range = source.pos.findClosestByRange(enemy_structures);
+			source.dangerous = range && (source.pos.getRangeTo(range.pos) <= 5);
+		}		
 	}
+
 	//sort nearest to furthest
 	sources = sources.sort((a,b) => a.dis_to_spawn - b.dis_to_spawn);
-	sources = sources.map((src) => ({id:src.id, dist:src.dis_to_spawn, harvs:{}, "is_not_wall_count":src.is_not_wall_count }) );
+	sources = sources.map((src) => ({id:src.id, dist:src.dis_to_spawn, harvs:{}, "is_not_wall_count":src.is_not_wall_count, "dangerous": src.dangerous }) );
 	sources.forEach( (source) => notice(`Source ${source.id} Distance to spawn = ${source.dist}`));
 	// plan how many miners per node (more per distance? Path? Road? Etc. start with roundly robins)
 	for( let ndx in sources)
@@ -60,10 +68,12 @@ function analyze_room(room_name)
 		}
 		notice(`Source ${source.id} required_harvesters=${source.required_harvesters} not_wall_count= ${source.is_not_wall_count}`);
 	}
+
 	let src_map = {};
 	sources.map( src => src_map[src.id] = src );
 	Memory.mining_map[room_name].sources = src_map;
 	Memory.mining_map[room_name].spawnid = spawn.id;
+
 	return;
 }
 
@@ -160,7 +170,7 @@ function refresh_room_mining_plan(room_name)
 	else
 		mine_map.to_build = null;
 
-	var dmgd_structure = room.find(FIND_STRUCTURES, {
+	let dmgd_structure = room.find(FIND_STRUCTURES, {
 			filter: (structure) => structure.hits < structure.hitsMax
 		});
 
@@ -169,6 +179,8 @@ function refresh_room_mining_plan(room_name)
 	else
 		mine_map.to_repair = null;
 
+	let enem = room.find(FIND_HOSTILE_CREEPS);
+	mine_map.enemies_present = enem !== null && enem.length > 0;
 }
 
 function _allocate_creep_to_mine(mine_map, creep)
@@ -291,6 +303,7 @@ function request_retrieve_target(creep)
 		return null;
 	return mine_map.retrieve_to[0];
 }
+
 //request mining target(room, creep)
 function request_mining_target(creep)
 {
@@ -301,14 +314,20 @@ function request_mining_target(creep)
 		return null;
 	}
 	let mine_map = Memory.mining_map[room_name];
+	function _safen_mining_target(srcid)
+	{
+		if(mine_map.enemies_present && mine_map.sources[srcid].dangerous)
+			return null;
+		return srcid;
+	}
 	// if in mining set, return its target
 	if( null != mine_map.harvs[creep.name] )
 	{
-		return mine_map.harvs[creep.name].assigned_to;
+		return _safen_mining_target(mine_map.harvs[creep.name].assigned_to);
 	}
 	// add to miners set
 	// allocate to proper node
-	return _allocate_creep_to_mine(mine_map, creep);
+	return _safen_mining_target(_allocate_creep_to_mine(mine_map, creep));
 }
 
 module.exports = 
