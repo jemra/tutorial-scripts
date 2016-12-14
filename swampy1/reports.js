@@ -9,6 +9,8 @@ function report_creep_makes(longform)
 		let Crpname = creep.name;
 		let role = creep.memory.role;
 		let model = creep.memory.model;
+		if (! model)
+			continue;
 		let body = {};
 		let body_str = [];
 		for(let part_no in creep.body)
