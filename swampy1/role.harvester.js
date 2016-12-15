@@ -5,6 +5,7 @@ const notice = util.mk_notice("mining_map");
 
 const rmap = {"builder":"build", "harvester":"retrieve", "upgrader":"upgrade"};
 
+
 let roleHarvester = {
 
 	alloc_func : null,
@@ -13,7 +14,6 @@ let roleHarvester = {
 	{
 		roleHarvester.work_api = work_allcator;
 	},
-
 
     /** @param {Creep} creep **/
     run: function(creep)
@@ -122,30 +122,7 @@ let roleHarvester = {
 		else if ( creep.memory.mode === "renew" )
 		{
 			util.set_doing_state(creep, "renew");
-			let spawnid =  roleHarvester.work_api.get_spawn_id(creep);
-			let spawn = Game.getObjectById(spawnid);
-			let retv = spawn.renewCreep(creep);
-			if(retv == OK)
-			{
-				//notice(`Creep ${creep.name} has RECHARGED TO ${creep.ticksToLive} `);
-			}
-			else if(retv === ERR_NOT_ENOUGH_ENERGY)
-			{
-				//give energy to spawn if have any
-                creep.transfer(spawn, RESOURCE_ENERGY);
-				//otherwise idle
-				//notice(`Creep ${creep.name} needs to wait to get recharged`);
-			}
-			else if( retv === ERR_FULL)
-			{
-				//finished repairs
-				notice(`Creep ${creep.name} has RECHARGED TO FULL @ ${creep.ticksToLive} `);
-				creep.memory.mode = rmap[creep.memory.role];
-			}
-			else if( retv == ERR_NOT_IN_RANGE )
-			{
-                creep.moveTo(spawn);
-			}
+			_add_to_renew_map(creep.room, creep);
 		}
         else if( creep.memory.mode === "upgrade" )
 		{
@@ -179,5 +156,74 @@ let roleHarvester = {
         }
 	}
 };
+
+function _add_to_renew_map(room, creep)
+{
+	if(! Memory.renew_queue )
+	{
+		Memory.renew_queue = {};
+		Memory.renew_creeps = {};
+	}
+	if(! Memory.renew_queue[room.name])
+		Memory.renew_queue[room.name] = [];
+	if(!Memory.renew_creeps[creep.name])
+	{
+		Memory.renew_queue[room.name].push({"name":creep.name});	
+		Memory.renew_creeps[creep.name] = 1;
+	}
+}
+function run_all_renewals(room)
+{
+	if(! Memory.renew_queue || ! Memory.renew_queue[room.name])
+		return;
+	let renew_queue = Memory.renew_queue[room.name];
+	//filter out all invalid entires in the set
+	let creeps = [];
+	let new_rq = [];
+	for( let ndx in renew_queue)
+	{
+		let entry = renew_queue[ndx];
+		let creep = Game.creeps[entry.name];
+		if(creep && creep.memory.mode === "renew" && creep.pos.roomName === room.name)
+		{
+			creeps.push(creep);
+			new_rq.push(entry);
+		}
+		else
+		{
+			Memory.renew_creeps[entry.name] = 0;
+		}
+	}
+	for( let ndx in creeps)
+	{
+		let creep = creeps[ndx];
+
+		let spawnid =  roleHarvester.work_api.get_spawn_id(creep);
+		let spawn = Game.getObjectById(spawnid);
+		let retv = spawn.renewCreep(creep);
+		if(retv == OK)
+		{
+			//notice(`Creep ${creep.name} has RECHARGED TO ${creep.ticksToLive} `);
+		}
+		else if(retv === ERR_NOT_ENOUGH_ENERGY)
+		{
+			//give energy to spawn if have any
+			creep.transfer(spawn, RESOURCE_ENERGY);
+			//otherwise idle
+			//notice(`Creep ${creep.name} needs to wait to get recharged`);
+		}
+		else if( retv === ERR_FULL)
+		{
+			//finished repairs
+			notice(`Creep ${creep.name} has RECHARGED TO FULL @ ${creep.ticksToLive} `);
+			creep.memory.mode = rmap[creep.memory.role];
+		}
+		else if( retv == ERR_NOT_IN_RANGE )
+		{
+			creep.moveTo(spawn);
+		}
+	}
+}
+roleHarvester.run_all_renewals = run_all_renewals;
 
 module.exports = roleHarvester;

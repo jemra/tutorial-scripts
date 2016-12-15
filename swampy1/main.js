@@ -86,6 +86,7 @@ module.exports.loop = function () {
             roleDefense.run(creep);
         }
     }
+	roleHarvester.run_all_renewals(cur_room);
 
 	if((Game.time % 25) === 0)
 	{

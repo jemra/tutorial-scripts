@@ -1,5 +1,10 @@
 
-	linera tick naming util?
+
+	renewal should be a linear thing
+		add a separate loop? Dont do in tick order?
+
+	linear tick naming util?
+
 
 	source keeper lair cannot be dealt with
 		utterly immune
